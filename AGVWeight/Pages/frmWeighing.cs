@@ -67,7 +67,7 @@ namespace AGVWeight.Pages
         /// </summary>
         private int FirstWeight { get; set; } = 0;
 
-
+        bool isOpenModbus = false;
         /// <summary>
         /// ทดสอบการเชื่อมต่อ
         /// </summary>
@@ -135,6 +135,7 @@ namespace AGVWeight.Pages
                         updateWeightUI(remoteIp, "Disconnect");
                     }
                     string resStr = Encoding.UTF8.GetString(buff, 0, res); // รออ่านผลลัพท์
+                    Console.Write(resStr);
                     int wgh = 0;
                     // server จะส่งน้ำหนักมาเสมอ หากเชื่อมต่อเครื่องชั่งได้ แต่หากเชื่อมต่อเครื่องชั่งไม่ได้ server จะส่งมาว่า ERROR
                     if (int.TryParse(resStr, out wgh))
@@ -202,7 +203,7 @@ namespace AGVWeight.Pages
         void defineConfig()
         {
             // เช็คค่าว่าง
-            if(IpMet == "")
+            if (IpMet == "")
             {
                 MessageBox.Show("ไม่พบหมายเลข IP ของเครื่องชั่ง Metller กรุณาตรวจสอบใหม่อีกครั้งที่หน้าตั้งค่า", "ไม่พบหมายถึง Ip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
@@ -216,7 +217,7 @@ namespace AGVWeight.Pages
             }
             string comDevice = ConfigurationManager.AppSettings["MODBUS_DEVICE_NAME"];
             string portName = ConfigurationManager.AppSettings["MODBUS_PORT_NAME"];
-            if(comDevice == "" || portName == "")
+            if (comDevice == "" || portName == "")
             {
                 MessageBox.Show("ไม่พบ COMPORT สำหรับ Modbus Server กรุณาตรวจสอบการตั้งค่า Port เพื่อให้ DCS มารับน้ำหนัก", "Modbus Server", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
@@ -486,6 +487,7 @@ namespace AGVWeight.Pages
             try
             {
                 modbusServer.Listen();
+                isOpenModbus = true;
             }
             catch (Exception ex)
             {
@@ -513,7 +515,10 @@ namespace AGVWeight.Pages
         {
             // เปิด Server Modbus 
             if (!openModbusServer())
+            {
                 this.Close();
+                return;
+            }
 
             // ตั้งเวลา Timeout ไว้ที่ 2000 ms (2 วินาที)
             watchdogTimer = new System.Timers.Timer(2000);
@@ -524,10 +529,10 @@ namespace AGVWeight.Pages
             defineConfig();    // กำหนดค่ามาแสดงที่โปรแกรม
             showFirstWeight(); // แสดงรายการชั่งเข้า หรือ ค้างชั่ง
 
-            _ = Task.Run(async () =>
-            {
-                await connectTcp(IpMet);
-            });
+            //_ = Task.Run(async () =>
+            //{
+            //    await connectTcp(IpMet);
+            //});
 
             // เชื่อมต่อเครื่องชั่ง ip
             _ = Task.Run(async () =>
@@ -553,8 +558,8 @@ namespace AGVWeight.Pages
                 item.Dispose();
             }
             tmUpdateModbusServer.Stop();  // หยุดการส่งน้ำหนักไปที่ Modbus Server
-            modbusServer.StopListening(); // หยุดเชื่อมต่อ Port
-
+            if (isOpenModbus)
+                modbusServer.StopListening(); // หยุดเชื่อมต่อ Port
         }
 
         private void selectIndicator(object sender, EventArgs e)
