@@ -111,7 +111,7 @@ namespace AGVWeight.Db
                 {
                     DataTable tb = new DataTable();
                     da.Fill(tb);
-                    if (tb.Rows.Count == 0 || tb == null)
+                    if (tb == null)
                         return null;
                     lists = defineModel(tb);
                 }
@@ -134,7 +134,7 @@ namespace AGVWeight.Db
                 {
                     DataTable tb = new DataTable();
                     da.Fill(tb);
-                    if (tb.Rows.Count == 0 || tb == null)
+                    if (tb == null)
                         return null;
                     lists = defineModel(tb);
                 }
