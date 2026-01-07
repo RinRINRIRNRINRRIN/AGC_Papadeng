@@ -165,7 +165,6 @@
             this.txtMet1.Name = "txtMet1";
             this.txtMet1.Size = new System.Drawing.Size(60, 33);
             this.txtMet1.TabIndex = 74;
-            this.txtMet1.Text = "XXX";
             this.txtMet1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMet1.TextChanged += new System.EventHandler(this.checkLength);
             this.txtMet1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);
@@ -176,7 +175,6 @@
             this.txtMet2.Name = "txtMet2";
             this.txtMet2.Size = new System.Drawing.Size(60, 33);
             this.txtMet2.TabIndex = 75;
-            this.txtMet2.Text = "XXX";
             this.txtMet2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMet2.TextChanged += new System.EventHandler(this.checkLength);
             this.txtMet2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);
@@ -187,7 +185,6 @@
             this.txtMet3.Name = "txtMet3";
             this.txtMet3.Size = new System.Drawing.Size(60, 33);
             this.txtMet3.TabIndex = 76;
-            this.txtMet3.Text = "XXX";
             this.txtMet3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMet3.TextChanged += new System.EventHandler(this.checkLength);
             this.txtMet3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);
@@ -208,7 +205,6 @@
             this.txtMet4.Name = "txtMet4";
             this.txtMet4.Size = new System.Drawing.Size(60, 33);
             this.txtMet4.TabIndex = 77;
-            this.txtMet4.Text = "XXX";
             this.txtMet4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMet4.TextChanged += new System.EventHandler(this.checkLength);
             this.txtMet4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);
@@ -253,7 +249,6 @@
             this.txtTsc1.Name = "txtTsc1";
             this.txtTsc1.Size = new System.Drawing.Size(60, 33);
             this.txtTsc1.TabIndex = 70;
-            this.txtTsc1.Text = "XXX";
             this.txtTsc1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTsc1.TextChanged += new System.EventHandler(this.checkLength);
             this.txtTsc1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);
@@ -264,7 +259,6 @@
             this.txtTsc2.Name = "txtTsc2";
             this.txtTsc2.Size = new System.Drawing.Size(60, 33);
             this.txtTsc2.TabIndex = 71;
-            this.txtTsc2.Text = "XXX";
             this.txtTsc2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTsc2.TextChanged += new System.EventHandler(this.checkLength);
             this.txtTsc2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);
@@ -275,7 +269,6 @@
             this.txtTsc3.Name = "txtTsc3";
             this.txtTsc3.Size = new System.Drawing.Size(60, 33);
             this.txtTsc3.TabIndex = 72;
-            this.txtTsc3.Text = "XXX";
             this.txtTsc3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTsc3.TextChanged += new System.EventHandler(this.checkLength);
             this.txtTsc3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);
@@ -286,7 +279,6 @@
             this.txtTsc4.Name = "txtTsc4";
             this.txtTsc4.Size = new System.Drawing.Size(60, 33);
             this.txtTsc4.TabIndex = 73;
-            this.txtTsc4.Text = "XXX";
             this.txtTsc4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTsc4.TextChanged += new System.EventHandler(this.checkLength);
             this.txtTsc4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.checkNumber);

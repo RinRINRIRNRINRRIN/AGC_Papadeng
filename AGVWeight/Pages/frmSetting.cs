@@ -218,19 +218,27 @@ namespace AGVWeight.Pages
                     break;
             }
             this.Enabled = false;
-            Ping ping = new Ping();
-            PingReply pingReply = await ping.SendPingAsync(ip, 5000);
-            if (pingReply.Status == IPStatus.Success)
+            try
             {
-                MessageBox.Show("ผลการทดสอบ \n" +
-                    "Response : " + pingReply.Status, "ทดสอบการเชื่อมต่อ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("ผลการทดสอบ \n" +
-    "Response : " + pingReply.Status, "ทดสอบการเชื่อมต่อ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Ping ping = new Ping();
+                PingReply pingReply = await ping.SendPingAsync(ip, 5000);
+                if (pingReply.Status == IPStatus.Success)
+                {
+                    MessageBox.Show("ผลการทดสอบ \n" +
+                        "Response : " + pingReply.Status, "ทดสอบการเชื่อมต่อ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("ผลการทดสอบ \n" +
+        "Response : " + pingReply.Status, "ทดสอบการเชื่อมต่อ", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("เกิดข้อผิดผลาดในการทดสอบ IP : " + ip + "\nError : " + ex.Message, "ทดสอบ IP", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             this.Enabled = true;
 
 
