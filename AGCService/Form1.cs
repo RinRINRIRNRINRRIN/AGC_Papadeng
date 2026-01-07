@@ -335,12 +335,14 @@ namespace AGCService
                                 wghStrSub = byteConvertString.Substring(4).Trim();
                                 if (int.TryParse(wghStrSub, out wgh))
                                 {
-                                    Console.WriteLine("SCALE : " + _scaleName + "," + wgh);
                                     lock (_lockObj)
                                     {
-                                        _latestWeight = wgh.ToString();
-
+                                        if (byteConvertString.Contains('R'))
+                                            _latestWeight = "-" + wgh.ToString();
+                                        else
+                                            _latestWeight = wgh.ToString();
                                     }
+                                    Console.WriteLine("SCALE : " + _scaleName + "," + _latestWeight);
                                 }
                             }
                             else
