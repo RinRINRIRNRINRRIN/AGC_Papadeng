@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AGVWeight.Models
+{
+    internal class PortsModel
+    {
+        public string DeviceNames { get; set; }
+        public string DevicePort { get; set; }
+        public override string ToString()
+        {
+            return DeviceNames; // ComboBox จะเรียกใช้อันนี้ในการแสดงผล
+        }
+    }
+}
