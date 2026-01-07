@@ -249,8 +249,6 @@ namespace AGVWeight.Pages
                 MessageBox.Show("ไม่พบหมายเลข IP ของเครื่องชั่ง TSC กรุณาตรวจสอบใหม่อีกครั้งที่หน้าตั้งค่า", "ไม่พบหมายถึง Ip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-            string comDevice = ConfigurationManager.AppSettings["MODBUS_DEVICE_NAME"];
-            string portName = ConfigurationManager.AppSettings["MODBUS_PORT_NAME"];
             if (comDevice == "" || portName == "")
             {
                 MessageBox.Show("ไม่พบ COMPORT สำหรับ Modbus Server กรุณาตรวจสอบการตั้งค่า Port เพื่อให้ DCS มารับน้ำหนัก", "Modbus Server", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -490,7 +488,7 @@ namespace AGVWeight.Pages
             bool isSuccess = true;
             // ลองทดสอบPort 
             SerialPort serialPort = new SerialPort();
-            serialPort.PortName = "COM1";
+            serialPort.PortName = portName;
             serialPort.BaudRate = 9600;
             serialPort.Parity = System.IO.Ports.Parity.None;
             serialPort.StopBits = System.IO.Ports.StopBits.One;
@@ -547,6 +545,13 @@ namespace AGVWeight.Pages
 
         private void frmWeighing_Load(object sender, EventArgs e)
         {
+            if (!defineConfig())    // กำหนดค่ามาแสดงที่โปรแกรม
+            {
+                this.Close();
+                return;
+            }
+            showFirstWeight(); // แสดงรายการชั่งเข้า หรือ ค้างชั่ง
+
             // เปิด Server Modbus 
             if (!openModbusServer())
             {
@@ -559,14 +564,12 @@ namespace AGVWeight.Pages
             watchdogTimer.Elapsed += OnTimedEvent;
             watchdogTimer.AutoReset = false; // ให้ทำงานครั้งเดียวแล้วหยุดจนกว่าจะ Start ใหม่
             tmUpdateModbusServer.Start();
+            tmStableCheck.Start();
 
-            defineConfig();    // กำหนดค่ามาแสดงที่โปรแกรม
-            showFirstWeight(); // แสดงรายการชั่งเข้า หรือ ค้างชั่ง
-
-            //_ = Task.Run(async () =>
-            //{
-            //    await connectTcp(IpMet);
-            //});
+            _ = Task.Run(async () =>
+            {
+                await connectTcp(IpMet);
+            });
 
             // เชื่อมต่อเครื่องชั่ง ip
             _ = Task.Run(async () =>
@@ -592,6 +595,7 @@ namespace AGVWeight.Pages
                 item.Dispose();
             }
             tmUpdateModbusServer.Stop();  // หยุดการส่งน้ำหนักไปที่ Modbus Server
+            tmStableCheck.Stop();
             if (isOpenModbus)
                 modbusServer.StopListening(); // หยุดเชื่อมต่อ Port
         }
