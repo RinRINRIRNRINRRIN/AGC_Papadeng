@@ -172,12 +172,27 @@ namespace AGVWeight.Pages
 
         void updateWeightUI(string remoteIp, string mes)
         {
+            bool convertInt = false;
+            int cc;
+            if (int.TryParse(mes, out cc))
+                convertInt = true;
+
             BeginInvoke(new MethodInvoker(delegate ()
             {
                 if (remoteIp == IpMet)
                 {
                     lblMet.Text = mes;
-                    if (mes.Length > 5)
+                    if (mes.Length >= 5 && convertInt)
+                    {
+                        lblMet.ForeColor = Color.Green;
+                        lblMet.Font = new Font("Segoe UI", 50, FontStyle.Bold);
+                    }
+                    else if (mes.Length == 5 && !convertInt)
+                    {
+                        lblMet.Font = new Font("Segoe UI", 50, FontStyle.Bold);
+                        lblMet.ForeColor = Color.Red;
+                    }
+                    else if (mes.Length > 5 && !convertInt)
                     {
                         lblMet.ForeColor = Color.Red;
                         lblMet.Font = new Font("Segoe UI", 15, FontStyle.Bold);
@@ -185,23 +200,32 @@ namespace AGVWeight.Pages
                     else
                     {
                         lblMet.ForeColor = Color.Green;
-                        lblMet.Font = new Font("Segoe UI", 70, FontStyle.Bold);
+                        lblMet.Font = new Font("Segoe UI", 50, FontStyle.Bold);
                     }
                 }
 
                 else if (remoteIp == IpTsc)
                 {
                     lblTsc.Text = mes;
-
-                    if (mes.Length > 5)
+                    if (mes.Length >= 5 && convertInt)
                     {
-                        lblTsc.Font = new Font("Segoe UI", 15, FontStyle.Bold);
+                        lblTsc.ForeColor = Color.Green;
+                        lblTsc.Font = new Font("Segoe UI", 50, FontStyle.Bold);
+                    }
+                    else if (mes.Length == 5 && !convertInt)
+                    {
+                        lblTsc.Font = new Font("Segoe UI", 50, FontStyle.Bold);
                         lblTsc.ForeColor = Color.Red;
+                    }
+                    else if (mes.Length > 5 && !convertInt)
+                    {
+                        lblTsc.ForeColor = Color.Red;
+                        lblTsc.Font = new Font("Segoe UI", 15, FontStyle.Bold);
                     }
                     else
                     {
                         lblTsc.ForeColor = Color.Green;
-                        lblTsc.Font = new Font("Segoe UI", 70, FontStyle.Bold);
+                        lblTsc.Font = new Font("Segoe UI", 50, FontStyle.Bold);
                     }
                 }
             }));
