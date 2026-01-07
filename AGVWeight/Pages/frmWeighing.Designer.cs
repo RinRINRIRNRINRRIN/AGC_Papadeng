@@ -779,7 +779,6 @@
             // 
             // tmStableCheck
             // 
-            this.tmStableCheck.Enabled = true;
             this.tmStableCheck.Tick += new System.EventHandler(this.tmStableCheck_Tick);
             // 
             // tmUpdateModbusServer
