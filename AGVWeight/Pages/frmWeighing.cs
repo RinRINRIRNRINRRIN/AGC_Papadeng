@@ -31,6 +31,8 @@ namespace AGVWeight.Pages
 
         private readonly string IpMet = ConfigurationManager.AppSettings["IP_METLER"];
         private readonly string IpTsc = ConfigurationManager.AppSettings["IP_THAISCALE"];
+        private readonly string comDevice = ConfigurationManager.AppSettings["MODBUS_DEVICE_NAME"];
+        private readonly string portName = ConfigurationManager.AppSettings["MODBUS_PORT_NAME"];
 
         CancellationTokenSource _cts = new CancellationTokenSource();
         List<TcpClient> tcpClients = new List<TcpClient>();
