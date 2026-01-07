@@ -147,6 +147,11 @@ namespace AGVWeight.Pages
                         //weight = wgh;
                         updateWeightUI(remoteIp, wgh.ToString());
                     }
+                    else
+                    {
+                        if (resStr == "ERROR\n\r")
+                            updateWeightUI(remoteIp, "ERROR");
+                    }
 
                     await Task.Delay(200, token);
                 }
