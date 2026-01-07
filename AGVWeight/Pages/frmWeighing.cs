@@ -231,34 +231,37 @@ namespace AGVWeight.Pages
             }));
         }
 
-        void defineConfig()
+        bool defineConfig()
         {
             // เช็คค่าว่าง
+            if (portName == "")
+            {
+                MessageBox.Show("กรุณาระบุ port สำหรับกำหนดค่า Modbus Server ก่อน", "ModbusServer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
             if (IpMet == "")
             {
                 MessageBox.Show("ไม่พบหมายเลข IP ของเครื่องชั่ง Metller กรุณาตรวจสอบใหม่อีกครั้งที่หน้าตั้งค่า", "ไม่พบหมายถึง Ip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close();
-                return;
+                return false;
             }
             if (IpTsc == "")
             {
                 MessageBox.Show("ไม่พบหมายเลข IP ของเครื่องชั่ง TSC กรุณาตรวจสอบใหม่อีกครั้งที่หน้าตั้งค่า", "ไม่พบหมายถึง Ip", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close();
-                return;
+                return false;
             }
             string comDevice = ConfigurationManager.AppSettings["MODBUS_DEVICE_NAME"];
             string portName = ConfigurationManager.AppSettings["MODBUS_PORT_NAME"];
             if (comDevice == "" || portName == "")
             {
                 MessageBox.Show("ไม่พบ COMPORT สำหรับ Modbus Server กรุณาตรวจสอบการตั้งค่า Port เพื่อให้ DCS มารับน้ำหนัก", "Modbus Server", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close();
-                return;
+                return false;
             }
             lblIpMet.Text = IpMet;
             lblIpTsc.Text = IpTsc;
             lblSlaveId.Text = "1";
-            lblComDevice.Text = ConfigurationManager.AppSettings["MODBUS_DEVICE_NAME"];
-            lblPort.Text = ConfigurationManager.AppSettings["MODBUS_PORT_NAME"];
+            lblComDevice.Text = comDevice;
+            lblPort.Text = portName;
+            return true;
         }
 
         void clearScreen()
