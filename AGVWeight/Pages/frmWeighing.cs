@@ -33,6 +33,7 @@ namespace AGVWeight.Pages
         private readonly string IpTsc = ConfigurationManager.AppSettings["IP_THAISCALE"];
         private readonly string comDevice = ConfigurationManager.AppSettings["MODBUS_DEVICE_NAME"];
         private readonly string portName = ConfigurationManager.AppSettings["MODBUS_PORT_NAME"];
+        private readonly string dcsClear = ConfigurationManager.AppSettings["TIME_CLEAR"];
 
         CancellationTokenSource _cts = new CancellationTokenSource();
         List<TcpClient> tcpClients = new List<TcpClient>();
@@ -254,6 +255,11 @@ namespace AGVWeight.Pages
                 MessageBox.Show("ไม่พบ COMPORT สำหรับ Modbus Server กรุณาตรวจสอบการตั้งค่า Port เพื่อให้ DCS มารับน้ำหนัก", "Modbus Server", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
+            if (dcsClear == "")
+            {
+                MessageBox.Show("โปรดตั้งเวลาเครียค่า DCS ก่อนใช้งาน", "Modbus Server", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
             lblIpMet.Text = IpMet;
             lblIpTsc.Text = IpTsc;
             lblSlaveId.Text = "1";
@@ -314,6 +320,8 @@ namespace AGVWeight.Pages
                 if (!int.TryParse(lblTsc.Text, out weight))
                     return;
 
+
+
             // เช็คน้ำหนัก
             if (weight <= 100)
             {
@@ -359,7 +367,8 @@ namespace AGVWeight.Pages
             // สร้างข้อมูลรอง
             if (!saveWeightDetail(weight, "FIRST WEIGHT", orderModel.Id))
                 return;
-
+            // snap น้ำหนัก
+            snapWeigthToDcs(weight);
             MessageBox.Show("บันทึกรายการชั่งรอบแรกสำเร็จ", "สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             clearScreen(); // เครียหน้าเจอให้พร้อมสำหรับเริ่มงานใหม่
             showFirstWeight(); // แสดงรายการชั่งเข้า
@@ -393,8 +402,9 @@ namespace AGVWeight.Pages
             int net = Math.Abs(FirstWeight - weight);
             OrderDb orderDb = new OrderDb();
             orderDb.updateStatusAndNetWeightById(orderId, "Success", net);
-
-            MessageBox.Show("บันทึกรายการชั่งรอบแรกสำเร็จ", "สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            // snap น้ำหนัก
+            snapWeigthToDcs(weight);
+            MessageBox.Show("บันทึกรายการชั่งรอบสองสำเร็จ", "สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             DialogResult dialogResult = MessageBox.Show("คุณต้องการพิมพ์ตั๋วโดยดูตัวอย่างการพิมพ์หรือไม่", "ดูตัวอย่างการพิมพ์", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
@@ -543,6 +553,19 @@ namespace AGVWeight.Pages
             };
         }
 
+        void snapWeigthToDcs(float wgh)
+        {
+            // 2. เรียกฟังก์ชันแปลงค่า
+            short[] registers = FloatToRegisters2(wgh);
+
+            // เขียนส่วนแรก (Low Word) ลง Register ที่ 1
+            modbusServer.holdingRegisters[1] = registers[0];
+            // เขียนส่วนที่สอง (High Word) ลง Register ที่ 2
+            modbusServer.holdingRegisters[2] = registers[1];
+
+            tmSnacpDcs.Enabled = true;
+        }
+
         private void frmWeighing_Load(object sender, EventArgs e)
         {
             if (!defineConfig())    // กำหนดค่ามาแสดงที่โปรแกรม
@@ -558,7 +581,8 @@ namespace AGVWeight.Pages
                 this.Close();
                 return;
             }
-
+            // ตั้งเวลา timer เครีย์น้ำหนักจาก DCS
+            tmSnacpDcs.Interval = int.Parse(dcsClear);
             // ตั้งเวลา Timeout ไว้ที่ 2000 ms (2 วินาที)
             watchdogTimer = new System.Timers.Timer(2000);
             watchdogTimer.Elapsed += OnTimedEvent;
@@ -741,14 +765,16 @@ namespace AGVWeight.Pages
                 }
             }
 
+
+
             // เช็ค first weight or second weight
             if (orderId == 0) // first weight
                 saveFirstWeight();
             else
                 saveSecondWeight();
-
-
         }
+
+
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -813,6 +839,16 @@ namespace AGVWeight.Pages
 
             // เขียนส่วนที่สอง (High Word) ลง Register ที่ 2
             modbusServer.holdingRegisters[4] = registers[1];
+        }
+
+        private void tmSnacpDcs_Tick(object sender, EventArgs e)
+        {
+            // เขียนส่วนแรก (Low Word) ลง Register ที่ 1
+            modbusServer.holdingRegisters[1] = 0;
+
+            // เขียนส่วนที่สอง (High Word) ลง Register ที่ 2
+            modbusServer.holdingRegisters[2] = 0;
+            tmSnacpDcs.Enabled = false;
         }
     }
 }

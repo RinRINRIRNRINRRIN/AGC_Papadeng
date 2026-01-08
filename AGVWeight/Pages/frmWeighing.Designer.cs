@@ -93,6 +93,7 @@
             this.label11 = new System.Windows.Forms.Label();
             this.tmStableCheck = new System.Windows.Forms.Timer(this.components);
             this.tmUpdateModbusServer = new System.Windows.Forms.Timer(this.components);
+            this.tmSnacpDcs = new System.Windows.Forms.Timer(this.components);
             this.gbInformation.SuspendLayout();
             this.gbList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -786,6 +787,10 @@
             this.tmUpdateModbusServer.Interval = 1000;
             this.tmUpdateModbusServer.Tick += new System.EventHandler(this.tmUpdateModbusServer_Tick);
             // 
+            // tmSnacpDcs
+            // 
+            this.tmSnacpDcs.Tick += new System.EventHandler(this.tmSnacpDcs_Tick);
+            // 
             // frmWeighing
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
@@ -880,5 +885,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn cl_product;
         private System.Windows.Forms.DataGridViewTextBoxColumn cl_customer;
         private System.Windows.Forms.DataGridViewTextBoxColumn cl_indicator;
+        private System.Windows.Forms.Timer tmSnacpDcs;
     }
 }
