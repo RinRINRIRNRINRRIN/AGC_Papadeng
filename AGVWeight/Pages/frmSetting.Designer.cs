@@ -58,6 +58,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.txtTmClear = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -108,12 +110,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.txtTmClear);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cbbCom);
             this.groupBox1.Location = new System.Drawing.Point(12, 105);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(500, 100);
+            this.groupBox1.Size = new System.Drawing.Size(500, 135);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Modbus Server";
@@ -137,7 +141,7 @@
             this.groupBox2.Controls.Add(this.button1);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(12, 211);
+            this.groupBox2.Location = new System.Drawing.Point(12, 246);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(500, 176);
             this.groupBox2.TabIndex = 27;
@@ -359,7 +363,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(229, 393);
+            this.btnCancel.Location = new System.Drawing.Point(229, 428);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(140, 43);
             this.btnCancel.TabIndex = 28;
@@ -369,7 +373,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(375, 393);
+            this.btnSave.Location = new System.Drawing.Point(375, 428);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(140, 43);
             this.btnSave.TabIndex = 29;
@@ -377,12 +381,30 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // txtTmClear
+            // 
+            this.txtTmClear.Location = new System.Drawing.Point(278, 91);
+            this.txtTmClear.Name = "txtTmClear";
+            this.txtTmClear.Size = new System.Drawing.Size(206, 33);
+            this.txtTmClear.TabIndex = 22;
+            this.txtTmClear.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTmClear_KeyPress);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(11, 98);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(98, 20);
+            this.label12.TabIndex = 23;
+            this.label12.Text = "TIMER CLEAR";
+            // 
             // frmSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(527, 443);
+            this.ClientSize = new System.Drawing.Size(527, 475);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.groupBox2);
@@ -444,5 +466,7 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Panel pnMET;
         private System.Windows.Forms.Panel pnTSC;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox txtTmClear;
     }
 }

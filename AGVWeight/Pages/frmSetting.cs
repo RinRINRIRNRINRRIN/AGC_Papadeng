@@ -35,9 +35,10 @@ namespace AGVWeight.Pages
             string deviceName = ConfigurationManager.AppSettings["MODBUS_DEVICE_NAME"];
             string ipThaiscale = ConfigurationManager.AppSettings["IP_THAISCALE"];
             string ipMetler = ConfigurationManager.AppSettings["IP_METLER"];
+            string tmClear = ConfigurationManager.AppSettings["TIME_CLEAR"];
             cbbCom.Items.Add(deviceName);
             cbbCom.SelectedIndex = 0;
-
+            txtTmClear.Text = tmClear;
             if (ipMetler != "" && ipMetler != null)
             {
                 string[] ipMet = ipMetler.Split('.');
@@ -68,6 +69,12 @@ namespace AGVWeight.Pages
             if (cbbCom.Text == "")
             {
                 MessageBox.Show("กรุณาเลือกพอร์ตสำหรับทำ Server", "Modbus COM Port", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (txtTmClear.Text == "")
+            {
+                MessageBox.Show("กรุณากรอกน้ำหนักหน่วงเวลา เพื่อเครียค่าน้ำหนักจาก DCS", "DCS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -119,6 +126,7 @@ namespace AGVWeight.Pages
                 config.AppSettings.Settings["MODBUS_PORT_NAME"].Value = portIdToSave;
                 config.AppSettings.Settings["IP_THAISCALE"].Value = ipAddressThaiScale;
                 config.AppSettings.Settings["IP_METLER"].Value = ipAddressMettler;
+                config.AppSettings.Settings["TIME_CLEAR"].Value = txtTmClear.Text;
 
                 config.Save(ConfigurationSaveMode.Modified);
                 MessageBox.Show("บันทึกการตั้งค่าสำเร็จ กรุณาเปิดโปรแกรมใหม่อีกครั้ง", "สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -241,6 +249,15 @@ namespace AGVWeight.Pages
 
             this.Enabled = true;
 
+
+        }
+
+        private void txtTmClear_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
 
         }
     }
