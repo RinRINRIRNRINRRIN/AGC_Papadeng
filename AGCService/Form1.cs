@@ -289,15 +289,15 @@ namespace AGCService
                 int wgh = 0;
                 string byteConvertString = "";
                 string wghStrSub = "";
-                lock (_lockObj)
-                    _latestWeight = "ERROR";
+                //lock (_lockObj)
+                //    _latestWeight = "ERROR";
 
                 switch (_scaleName)
                 {
                     case "METLER":
                         serialPort1.Read(data, 0, data.Length);
                         buffer.AddRange(data);
-
+                        // Console.WriteLine(buffer.Count);
                         while (buffer.Count >= 17)
                         {
                             if (buffer[0] == 0x02 && buffer[16] == 0x0d)
@@ -314,6 +314,10 @@ namespace AGCService
                                         _latestWeight = wgh.ToString();
                                     }
                                 }
+                                else
+                                {
+                                    Console.WriteLine(wghStrSub);
+                                }
                             }
                             else
                             {
@@ -324,7 +328,6 @@ namespace AGCService
                     case "X3":
                         serialPort1.Read(data, 0, data.Length);
                         buffer.AddRange(data);
-
                         while (buffer.Count >= 11)
                         {
                             if (buffer[0] == 0x02 && buffer[10] == 0x03)
@@ -352,7 +355,7 @@ namespace AGCService
                         }
                         break;
                 }
-                BeginInvoke(new MethodInvoker(delegate ()
+                this.BeginInvoke(new MethodInvoker(delegate ()
                 {
                     label5.Text = _latestWeight;
                 }));
@@ -433,9 +436,6 @@ namespace AGCService
             watchdogTimer = new System.Timers.Timer(2000);
             watchdogTimer.Elapsed += OnTimedEvent;
             watchdogTimer.AutoReset = false; // ให้ทำงานครั้งเดียวแล้วหยุดจนกว่าจะ Start ใหม่
-
-
-
 
             // load config
             cbbPort.Items.Clear();
