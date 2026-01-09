@@ -239,7 +239,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptTicket.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>rptTicket.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
