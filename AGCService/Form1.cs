@@ -242,7 +242,7 @@ namespace AGCService
 
                     if (msg == "GET WEIGHT")
                     {
-                        await ns.WriteAsync(buf, 0, buf.Length, token);
+                        await ns.WriteAsync(buf, 0, buf.Length, token);                       
                     }
                 }
             }
@@ -411,9 +411,9 @@ namespace AGCService
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
+            _latestWeight = "ERROR";
             BeginInvoke(new MethodInvoker(delegate ()
             {
-                _latestWeight = "ERROR";
                 label5.Text = "ERROR";
             }));
         }
@@ -433,9 +433,10 @@ namespace AGCService
             }
 
             // ตั้งเวลา Timeout ไว้ที่ 2000 ms (2 วินาที)
-            watchdogTimer = new System.Timers.Timer(2000);
+            watchdogTimer = new System.Timers.Timer(3500);
             watchdogTimer.Elapsed += OnTimedEvent;
             watchdogTimer.AutoReset = false; // ให้ทำงานครั้งเดียวแล้วหยุดจนกว่าจะ Start ใหม่
+            watchdogTimer.Start();
 
             // load config
             cbbPort.Items.Clear();
@@ -444,7 +445,6 @@ namespace AGCService
             cbbPort.SelectedIndex = 0;
             cbbScale.Items.Add(_scaleName);
             cbbScale.SelectedIndex = 0;
-
             // connect scale
             if (!tryConnectPort())
                 return;
