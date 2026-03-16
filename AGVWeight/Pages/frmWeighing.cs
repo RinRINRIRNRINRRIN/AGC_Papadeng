@@ -754,13 +754,7 @@ namespace AGVWeight.Pages
                 string license = rw.Cells["cl_licensePlate"].Value.ToString();
                 if (license == txtLicensePlate.Text && gbInformation.Enabled)
                 {
-                    orderId = int.Parse(rw.Cells["cl_id"].Value.ToString());
-                    FirstWeight = int.Parse(rw.Cells["cl_weightIn"].Value.ToString());
-                    DialogResult res = MessageBox.Show("เนื่องจากคีย์ทะเบียนรถซ้ำกับทะเบียนรถที่มีรายการชั่งรองแรกอยู่แล้ว ระบบจะบังคับชั่งรอบสองก่อน \nยืนยันหรือไม่?", "ชั่งรถรอบสอง", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (res == DialogResult.No)
-                        return;
-                    showFirstWeightOnGroupBox(orderId);
-                    saveSecondWeight();
+                   MessageBox.Show("เนื่องจากคีย์ทะเบียนรถซ้ำกับทะเบียนรถที่มีรายการชั่งรองแรกอยู่แล้ว กรุณาเลือกชั่งให้สำเร็จก่อน", "ชั่งรถรอบสอง", MessageBoxButtons.OK, MessageBoxIcon.Question);              
                     return;
                 }
             }
