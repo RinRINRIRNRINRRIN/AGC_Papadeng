@@ -138,7 +138,7 @@ namespace AGVWeight.Pages
                         updateWeightUI(remoteIp, "Disconnect");
                     }
                     string resStr = Encoding.UTF8.GetString(buff, 0, res); // รออ่านผลลัพท์
-                    Console.Write(resStr);
+                    //Console.Write(resStr);
                     int wgh = 0;
                     // server จะส่งน้ำหนักมาเสมอ หากเชื่อมต่อเครื่องชั่งได้ แต่หากเชื่อมต่อเครื่องชั่งไม่ได้ server จะส่งมาว่า ERROR
                     if (int.TryParse(resStr, out wgh))
@@ -272,6 +272,12 @@ namespace AGVWeight.Pages
         {
             foreach (TextBox txt in gbInformation.Controls.OfType<TextBox>())
                 txt.Clear();
+
+            foreach (Label lbl in panel1.Controls.OfType<Label>())
+            {
+                if (lbl.Tag == "WGH")
+                    lbl.Text = "0";
+            }
 
             foreach (ComboBox cbb in gbInformation.Controls.OfType<ComboBox>())
             {
@@ -733,19 +739,19 @@ namespace AGVWeight.Pages
                     isNotInt = false;
 
             if (!isNotInt)
-                {
+            {
                 lblNetWeight.Text = "0";
                 lblSecondWeight.Text = "0";
-                    btnSave.Enabled = false;
-                    return;
-                }
+                btnSave.Enabled = false;
+                return;
+            }
 
             // เช็คว่าถ้าเป็น Second weight ให้อัพเดทน้ำหนักไปที่ label
             if (orderId != 0 && lblFirstWeight.Text != "0")
-                {
+            {
                 lblSecondWeight.Text = newWeight.ToString();
                 lblNetWeight.Text = Math.Abs(int.Parse(lblFirstWeight.Text) - newWeight).ToString();
-                }
+            }
 
             if (newWeight != lastWeight)
             {
@@ -855,5 +861,6 @@ namespace AGVWeight.Pages
             modbusServer.holdingRegisters[2] = 0;
             tmSnacpDcs.Enabled = false;
         }
+
     }
 }
