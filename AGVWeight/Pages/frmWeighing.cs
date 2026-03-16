@@ -723,18 +723,28 @@ namespace AGVWeight.Pages
 
         private void tmStableCheck_Tick(object sender, EventArgs e)
         {
+            bool isNotInt = true;
             if (IndicatorSelect == "MET")
                 if (!int.TryParse(lblMet.Text, out newWeight))
+                    isNotInt = false;
+
+            if (IndicatorSelect == "TSC")
+                if (!int.TryParse(lblTsc.Text, out newWeight))
+                    isNotInt = false;
+
+            if (!isNotInt)
                 {
+                lblNetWeight.Text = "0";
+                lblSecondWeight.Text = "0";
                     btnSave.Enabled = false;
                     return;
                 }
 
-            if (IndicatorSelect == "TSC")
-                if (!int.TryParse(lblTsc.Text, out newWeight))
+            // เช็คว่าถ้าเป็น Second weight ให้อัพเดทน้ำหนักไปที่ label
+            if (orderId != 0 && lblFirstWeight.Text != "0")
                 {
-                    btnSave.Enabled = false;
-                    return;
+                lblSecondWeight.Text = newWeight.ToString();
+                lblNetWeight.Text = Math.Abs(int.Parse(lblFirstWeight.Text) - newWeight).ToString();
                 }
 
             if (newWeight != lastWeight)
