@@ -784,7 +784,6 @@ namespace AGVWeight.Pages
         {
             try
             {
-
                 OrderDb orderDb = new OrderDb();
                 string clName = dgv.Columns[e.ColumnIndex].Name;
                 switch (clName)
@@ -811,6 +810,8 @@ namespace AGVWeight.Pages
                         showFirstWeightOnGroupBox(orderId);
                         gbInformation.Enabled = false;
                         gbList.Enabled = false;
+                        lblFirstWeight.Text = FirstWeight.ToString();
+                        //lblSecondWeight.Text = 
                         break;
                 }
             }
