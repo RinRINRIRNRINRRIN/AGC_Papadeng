@@ -292,7 +292,7 @@ namespace AGVWeight.Pages
             dgv.ClearSelection();
         }
 
-        void saveFirstWeight()
+        void saveFirstWeight(int weight)
         {
             // เช็คค่าว่าง
             foreach (TextBox txt in gbInformation.Controls.OfType<TextBox>())
@@ -315,16 +315,16 @@ namespace AGVWeight.Pages
                     txt.Text = "-";
 
 
-            // กำหนดน้ำหนัก
-            int weight = 0;
-            if (IndicatorSelect == "MET")
-                if (!int.TryParse(lblMet.Text, out weight))
-                    return;
+            //// กำหนดน้ำหนัก
+            //int weight = 0;
+            //if (IndicatorSelect == "MET")
+            //    if (!int.TryParse(lblMet.Text, out weight))
+            //        return;
 
 
-            if (IndicatorSelect == "TSC")
-                if (!int.TryParse(lblTsc.Text, out weight))
-                    return;
+            //if (IndicatorSelect == "TSC")
+            //    if (!int.TryParse(lblTsc.Text, out weight))
+            //        return;
 
 
 
@@ -380,18 +380,18 @@ namespace AGVWeight.Pages
             showFirstWeight(); // แสดงรายการชั่งเข้า
         }
 
-        void saveSecondWeight()
+        void saveSecondWeight(int weight)
         {
-            // กำหนดน้ำหนัก
-            int weight = 0;
-            if (IndicatorSelect == "MET")
-                if (!int.TryParse(lblMet.Text, out weight))
-                    return;
+            //// กำหนดน้ำหนัก
+            //int weight = 0;
+            //if (IndicatorSelect == "MET")
+            //    if (!int.TryParse(lblMet.Text, out weight))
+            //        return;
 
 
-            if (IndicatorSelect == "TSC")
-                if (!int.TryParse(lblTsc.Text, out weight))
-                    return;
+            //if (IndicatorSelect == "TSC")
+            //    if (!int.TryParse(lblTsc.Text, out weight))
+            //        return;
 
             // เช็คน้ำหนัก
             if (weight <= 100)
@@ -471,7 +471,7 @@ namespace AGVWeight.Pages
             {
                 OrderDetailDb orderDetailDb = new OrderDetailDb();
                 List<OrderDetailModel> orderDetailModel = orderDetailDb.getOrderDetailById(model.Id);
-                dgv.Rows.Add("", "", model.Id, model.OrderNumber, model.DateWeight, model.LicensePlate, orderDetailModel[0].Weight, model.Typez, model.Product_name, model.Customer_name, orderDetailModel[0].IndicatorWeight);
+                dgv.Rows.Add("", model.Id, model.OrderNumber, model.DateWeight, model.LicensePlate, orderDetailModel[0].Weight, model.Typez, model.Product_name, model.Customer_name, orderDetailModel[0].IndicatorWeight, "");
             }
         }
 
@@ -770,18 +770,33 @@ namespace AGVWeight.Pages
                 string license = rw.Cells["cl_licensePlate"].Value.ToString();
                 if (license == txtLicensePlate.Text && gbInformation.Enabled)
                 {
-                   MessageBox.Show("เนื่องจากคีย์ทะเบียนรถซ้ำกับทะเบียนรถที่มีรายการชั่งรองแรกอยู่แล้ว กรุณาเลือกชั่งให้สำเร็จก่อน", "ชั่งรถรอบสอง", MessageBoxButtons.OK, MessageBoxIcon.Question);              
+                    MessageBox.Show("เนื่องจากคีย์ทะเบียนรถซ้ำกับทะเบียนรถที่มีรายการชั่งรองแรกอยู่แล้ว กรุณาเลือกชั่งให้สำเร็จก่อน", "ชั่งรถรอบสอง", MessageBoxButtons.OK, MessageBoxIcon.Question);
                     return;
                 }
             }
 
+            // snap น้ำหนักไว้ที่ตัวแปรเพื่อรอการบันทึก
+            // กำหนดน้ำหนัก
+            int weight = 0;
+            if (IndicatorSelect == "MET")
+                if (!int.TryParse(lblMet.Text, out weight))
+                    return;
 
+
+            if (IndicatorSelect == "TSC")
+                if (!int.TryParse(lblTsc.Text, out weight))
+                    return;
+
+            // ถามเพื่อความมั่นใจอีกครั้ง
+            DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่?", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res != DialogResult.Yes)
+                return;
 
             // เช็ค first weight or second weight
             if (orderId == 0) // first weight
-                saveFirstWeight();
+                saveFirstWeight(weight);
             else
-                saveSecondWeight();
+                saveSecondWeight(weight);
         }
 
 
@@ -810,6 +825,7 @@ namespace AGVWeight.Pages
                         clearScreen();
                         break;
                     case "cl_select":
+                        Console.WriteLine(dgv.Rows[e.RowIndex].Cells["cl_id"].Value.ToString());
                         orderId = int.Parse(dgv.Rows[e.RowIndex].Cells["cl_id"].Value.ToString());
                         FirstWeight = int.Parse(dgv.Rows[e.RowIndex].Cells["cl_weightIn"].Value.ToString());
                         dgv.Rows[e.RowIndex].Selected = true;
