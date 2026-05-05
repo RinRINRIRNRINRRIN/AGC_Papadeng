@@ -131,6 +131,45 @@ namespace AGVWeight.Db
             return true;
         }
 
+        public bool updateOrderById(OrderModel model)
+        {
+            try
+            {
+                string sql = "UPDATE orderz " +
+                    "SET type_name = @type_name, " +
+                    "customer_name = @customer_name, " +
+                    "product_name = @product_name, " +
+                    "transport_name = @transport_name, " +
+                    "soNo = @soNo, " +
+                    "dnNo = @dnNo, " +
+                    "shipment = @shipment, " +
+                    "containerNo = @containerNo, " +
+                    "sealNo = @sealNo " +
+                    "WHERE id = @id";
+                using (SQLiteCommand cmd = new SQLiteCommand(sql, con))
+                {
+                    cmd.Parameters.Add(new SQLiteParameter("@type_name", model.Typez));
+                    cmd.Parameters.Add(new SQLiteParameter("@licensePlate", model.LicensePlate));
+                    cmd.Parameters.Add(new SQLiteParameter("@customer_name", model.Customer_name));
+                    cmd.Parameters.Add(new SQLiteParameter("@product_name", model.Product_name));
+                    cmd.Parameters.Add(new SQLiteParameter("@transport_name", model.Transport_name));
+                    cmd.Parameters.Add(new SQLiteParameter("@soNo", model.SoNumber));
+                    cmd.Parameters.Add(new SQLiteParameter("@dnNo", model.DnNo));
+                    cmd.Parameters.Add(new SQLiteParameter("@shipment", model.Shipment));
+                    cmd.Parameters.Add(new SQLiteParameter("@containerNo", model.ContainerNo));
+                    cmd.Parameters.Add(new SQLiteParameter("@sealNo", model.SealNo));
+                    cmd.Parameters.Add(new SQLiteParameter("@id", model.Id));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return false;
+            }
+            return true;
+        }
+
         List<OrderModel> defineModel(DataTable tb)
         {
             List<OrderModel> lists = new List<OrderModel>();
