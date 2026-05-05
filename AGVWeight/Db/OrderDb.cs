@@ -22,6 +22,33 @@ namespace AGVWeight.Db
         private readonly SQLiteConnection con;
         public string Error { get; set; }
 
+        public int getOrderIdByOrderNumber(string orderNumber)
+        {
+            int id = 0;
+            try
+            {
+                string sql = $"SELECT id FROM orderz WHERE orderNumber = '{orderNumber}'";
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter(sql, con))
+                {
+                    DataTable tb = new DataTable();
+                    da.Fill(tb);
+                    if (tb.Rows.Count == 0)
+                    {
+                        Error = "ไม่พบรายการ";
+                        return 0;
+                    }
+                    foreach (DataRow rw in tb.Rows)
+                        id = int.Parse(rw["id"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                return 0;
+            }
+            return id;
+        }
+
         public string generateOrder()
         {
             string orderNumber = "";
