@@ -286,10 +286,8 @@ namespace AGVWeight.Pages
                 cbb.SelectedIndex = 0;
             }
 
-            gbList.Enabled = true;
             gbInformation.Enabled = true;
             orderId = 0;
-            dgv.ClearSelection();
         }
 
         bool checkTextEmpty()
@@ -365,7 +363,6 @@ namespace AGVWeight.Pages
             snapWeigthToDcs(weight);
             MessageBox.Show("บันทึกรายการชั่งรอบแรกสำเร็จ", "สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information);
             clearScreen(); // เครียหน้าเจอให้พร้อมสำหรับเริ่มงานใหม่
-            showFirstWeight(); // แสดงรายการชั่งเข้า
         }
 
         void saveSecondWeight(int weight, int net)
@@ -419,7 +416,6 @@ namespace AGVWeight.Pages
                 frmReport.ShowDialog();
             }
             clearScreen(); // เครียหน้าเจอให้พร้อมสำหรับเริ่มงานใหม่
-            showFirstWeight(); // แสดงรายการชั่งเข้า
         }
 
         bool saveWeightDetail(int wgh, string weightType, int orderId)
@@ -445,31 +441,6 @@ namespace AGVWeight.Pages
             return isSuccess;
         }
 
-        void showFirstWeight()
-        {
-            OrderDb orderDb = new OrderDb();
-            dgv.Rows.Clear();
-            List<OrderModel> orderModels = orderDb.getOrderByStatus("Process");
-            if (orderModels == null)
-                if (orderDb.Error == "ไม่พบรายการ")
-                {
-                    lblFirstWeightCount.Text = "ไม่มีรายการรถค้างชั่ง";
-                    return;
-                }
-                else
-                {
-                    MessageBox.Show("เกิดข้อผิดผลาด เรียกรายการรถค้างชั่ง \nError : " + orderDb.Error, "เกิดข้อผิดผลาด", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            lblFirstWeightCount.Text = "จำนวนรายการทั้งหมด " + orderModels.Count.ToString();
-            // กำหนดค่าที่ dgv 
-            foreach (OrderModel model in orderModels)
-            {
-                OrderDetailDb orderDetailDb = new OrderDetailDb();
-                List<OrderDetailModel> orderDetailModel = orderDetailDb.getOrderDetailById(model.Id);
-                dgv.Rows.Add("", model.Id, model.OrderNumber, model.DateWeight, model.LicensePlate, orderDetailModel[0].Weight, model.Typez, model.Product_name, model.Customer_name, orderDetailModel[0].IndicatorWeight, "");
-            }
-        }
 
         void showFirstWeightOnGroupBox(int orderId)
         {
@@ -575,7 +546,6 @@ namespace AGVWeight.Pages
                 this.Close();
                 return;
             }
-            showFirstWeight(); // แสดงรายการชั่งเข้า หรือ ค้างชั่ง
 
             // เปิด Server Modbus 
             if (!openModbusServer())
@@ -760,18 +730,6 @@ namespace AGVWeight.Pages
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // เอา textbox ทะเบียนรถไปค้นหาที่ datagrid
-            if (orderId == 0)
-                foreach (DataGridViewRow rw in dgv.Rows)
-                {
-                    string license = rw.Cells["cl_licensePlate"].Value.ToString();
-                    if (license == txtLicensePlate.Text && gbInformation.Enabled)
-                    {
-                        MessageBox.Show("เนื่องจากคีย์ทะเบียนรถซ้ำกับทะเบียนรถที่มีรายการชั่งรองแรกอยู่แล้ว กรุณาเลือกชั่งให้สำเร็จก่อน", "ชั่งรถรอบสอง", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                        return;
-                    }
-                }
-
             // snap น้ำหนักไว้ที่ตัวแปรเพื่อรอการบันทึก
             // กำหนดน้ำหนัก
             int weight = 0, net = 0;
@@ -811,51 +769,6 @@ namespace AGVWeight.Pages
                 saveFirstWeight(weight);
             else
                 saveSecondWeight(weight, net);
-        }
-
-
-
-        private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            try
-            {
-                OrderDb orderDb = new OrderDb();
-                string clName = dgv.Columns[e.ColumnIndex].Name;
-                switch (clName)
-                {
-                    case "cl_delete":
-                        orderId = int.Parse(dgv.Rows[e.RowIndex].Cells["cl_id"].Value.ToString());
-                        FirstWeight = int.Parse(dgv.Rows[e.RowIndex].Cells["cl_weightIn"].Value.ToString());
-                        DialogResult res = MessageBox.Show("คุณต้องการยกเลิกรายการรถที่เลือกหรือไม่", "ยกเลิกรายการ", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (res == DialogResult.Yes)
-                        {
-                            if (!orderDb.updateStatusAndNetWeightById(orderId, "Cancel", 0))
-                            {
-                                MessageBox.Show("เกิดข้อผิดผลาด ยกเลิกเลขที่ชั่ง \nError : " + orderDb.Error, "เกิดข้อผิดผลาด", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                return;
-                            }
-                            showFirstWeight();
-                        }
-                        clearScreen();
-                        break;
-                    case "cl_select":
-                        Console.WriteLine(dgv.Rows[e.RowIndex].Cells["cl_id"].Value.ToString());
-                        orderId = int.Parse(dgv.Rows[e.RowIndex].Cells["cl_id"].Value.ToString());
-                        FirstWeight = int.Parse(dgv.Rows[e.RowIndex].Cells["cl_weightIn"].Value.ToString());
-                        dgv.Rows[e.RowIndex].Selected = true;
-                        showFirstWeightOnGroupBox(orderId);
-                        txtLicensePlate.Enabled = false;
-                        gbList.Enabled = false;
-                        lblFirstWeight.Text = FirstWeight.ToString();
-                        //lblSecondWeight.Text = 
-                        break;
-                }
-            }
-            catch
-            {
-
-
-            }
         }
 
         private void tmUpdateModbusServer_Tick(object sender, EventArgs e)
