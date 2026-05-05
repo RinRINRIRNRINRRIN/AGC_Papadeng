@@ -373,7 +373,7 @@ namespace AGVWeight.Pages
             showFirstWeight(); // แสดงรายการชั่งเข้า
         }
 
-        void saveSecondWeight(int weight)
+        void saveSecondWeight(int weight, int net)
         {
             //// กำหนดน้ำหนัก
             //int weight = 0;
@@ -391,8 +391,7 @@ namespace AGVWeight.Pages
             if (!saveWeightDetail(weight, "SECOND WEIGHT", orderId))
                 return;
 
-            // อัพเดทสถานะและน้ำหนักสุทธิ
-            int net = Math.Abs(FirstWeight - weight);
+
             OrderDb orderDb = new OrderDb();
             orderDb.updateStatusAndNetWeightById(orderId, "Success", net);
             // snap น้ำหนัก
@@ -764,7 +763,7 @@ namespace AGVWeight.Pages
 
             // snap น้ำหนักไว้ที่ตัวแปรเพื่อรอการบันทึก
             // กำหนดน้ำหนัก
-            int weight = 0;
+            int weight = 0, net = 0;
             if (IndicatorSelect == "MET")
                 if (!int.TryParse(lblMet.Text, out weight))
                     return;
@@ -774,12 +773,6 @@ namespace AGVWeight.Pages
                 if (!int.TryParse(lblTsc.Text, out weight))
                     return;
 
-            // เช็คน้ำหนัก
-            if (weight <= 100)
-            {
-                MessageBox.Show("น้ำหนักที่บันทึกต้องมากกว่า 100 Kg", "น้ำหนักน้อยกว่าที่กำหนด", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             // ถามเพื่อความมั่นใจอีกครั้ง
             if (orderId == 0)
@@ -791,10 +784,12 @@ namespace AGVWeight.Pages
             }
             else
             {
+                // อัพเดทสถานะและน้ำหนักสุทธิ
+                net = Math.Abs(FirstWeight - weight);
                 DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่? \n" +
-             $"First weight : {lblFirstWeight.Text}\n" +
-             $"Second weight : {lblSecondWeight.Text}\n" +
-             $"Net weight : {weight}", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+             $"First weight : {FirstWeight}\n" +
+             $"Second weight : {weight}\n" +
+             $"Net weight : {net}", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (res != DialogResult.Yes)
                     return;
             }
@@ -804,7 +799,7 @@ namespace AGVWeight.Pages
             if (orderId == 0) // first weight
                 saveFirstWeight(weight);
             else
-                saveSecondWeight(weight);
+                saveSecondWeight(weight, net);
         }
 
 
