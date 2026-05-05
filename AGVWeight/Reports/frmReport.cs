@@ -114,6 +114,8 @@ namespace AGVWeight.Reports
             rpt.SetParameterValue("rptWeightIn", wghIn);
             rpt.SetParameterValue("rptWeightOut", wghOut);
             rpt.SetParameterValue("rptWeightNet", orderModel.NetWeight.ToString("N0"));
+            rpt.SetParameterValue("rptSo", orderModel.SoNumber);
+            rpt.SetParameterValue("rptType", orderModel.Typez);
 
             crystalReportViewer1.EnableRefresh = false;
             crystalReportViewer1.ReportSource = rpt;
