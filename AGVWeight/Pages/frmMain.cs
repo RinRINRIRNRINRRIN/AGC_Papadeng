@@ -23,6 +23,7 @@ namespace AGVWeight
         {
 
             ToolStripMenuItem item = sender as ToolStripMenuItem;
+            this.Hide();
             switch (item.Tag)
             {
                 case "TYPE":
@@ -49,8 +50,17 @@ namespace AGVWeight
                     frmHire frmHire = new frmHire();
                     frmHire.ShowDialog();
                     break;
+                case "WEIGHT":
+                    frmWeighing frmWeight = new frmWeighing();
+                    frmWeight.ShowDialog();
+                    break;
+                case "HISTORY":
+                    frmHistory frmHistory = new frmHistory();
+                    frmHistory.ShowDialog();
+                    break;
 
             }
+            this.Show();
 
         }
 
@@ -62,20 +72,6 @@ namespace AGVWeight
                 Application.Exit();
                 return;
             }
-        }
-
-        private void ชงสนคาToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmWeighing frmWeighing = new frmWeighing();
-            this.Hide();
-            frmWeighing.ShowDialog();
-            this.Show();
-        }
-
-        private void ประวตการชงToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmHistory frmHistory = new frmHistory();
-            frmHistory.ShowDialog();
         }
     }
 }

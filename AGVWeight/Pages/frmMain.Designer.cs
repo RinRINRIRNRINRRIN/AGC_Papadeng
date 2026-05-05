@@ -119,16 +119,18 @@
             this.ชงสนคาToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ชงสนคาToolStripMenuItem.Image")));
             this.ชงสนคาToolStripMenuItem.Name = "ชงสนคาToolStripMenuItem";
             this.ชงสนคาToolStripMenuItem.Size = new System.Drawing.Size(99, 29);
+            this.ชงสนคาToolStripMenuItem.Tag = "WEIGHT";
             this.ชงสนคาToolStripMenuItem.Text = "ชั่งสินค้า";
-            this.ชงสนคาToolStripMenuItem.Click += new System.EventHandler(this.ชงสนคาToolStripMenuItem_Click);
+            this.ชงสนคาToolStripMenuItem.Click += new System.EventHandler(this.ขอมลประเภทToolStripMenuItem_Click);
             // 
             // ประวตการชงToolStripMenuItem
             // 
             this.ประวตการชงToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ประวตการชงToolStripMenuItem.Image")));
             this.ประวตการชงToolStripMenuItem.Name = "ประวตการชงToolStripMenuItem";
             this.ประวตการชงToolStripMenuItem.Size = new System.Drawing.Size(132, 29);
+            this.ประวตการชงToolStripMenuItem.Tag = "HISTORY";
             this.ประวตการชงToolStripMenuItem.Text = "ประวัติการชั่ง";
-            this.ประวตการชงToolStripMenuItem.Click += new System.EventHandler(this.ประวตการชงToolStripMenuItem_Click);
+            this.ประวตการชงToolStripMenuItem.Click += new System.EventHandler(this.ขอมลประเภทToolStripMenuItem_Click);
             // 
             // ตงคาระบบToolStripMenuItem
             // 
