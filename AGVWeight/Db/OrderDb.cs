@@ -54,6 +54,38 @@ namespace AGVWeight.Db
             return orderNumber;
         }
 
+        public string generateOrderDummy()
+        {
+            string orderNumber = "";
+            try
+            {
+                string yy = DateTime.Now.ToString("yy", System.Globalization.CultureInfo.CreateSpecificCulture("EN-en"));
+                string MM = DateTime.Now.ToString("MM", System.Globalization.CultureInfo.CreateSpecificCulture("EN-en"));
+                string dd = DateTime.Now.ToString("dd", System.Globalization.CultureInfo.CreateSpecificCulture("EN-en"));
+
+                string sql = $"SELECT * FROM orderz WHERE orderNumber LIKE 'D-ORW{yy}{MM}{dd}%'";
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter(sql, con))
+                {
+                    DataTable tb = new DataTable();
+                    int seq = 0;
+                    da.Fill(tb);
+                    seq = tb.Rows.Count + 1;
+                    if (tb.Rows.Count == 0)
+                        orderNumber = $"D-ORW{yy}{MM}{dd}-1";
+                    else
+                        orderNumber = $"D-ORW{yy}{MM}{dd}-{seq}";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Error = ex.Message;
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            return orderNumber;
+        }
+
         public bool addNew(OrderModel model)
         {
             try
