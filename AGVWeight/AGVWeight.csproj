@@ -178,6 +178,12 @@
     <Compile Include="Pages\frmTypes.Designer.cs">
       <DependentUpon>frmTypes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pages\frmHire.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pages\frmHire.Designer.cs">
+      <DependentUpon>frmHire.cs</DependentUpon>
+    </Compile>
     <Compile Include="Pages\frmWeighing.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,6 +228,9 @@
     <EmbeddedResource Include="Pages\frmTypes.resx">
       <DependentUpon>frmTypes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Pages\frmHire.resx">
+      <DependentUpon>frmHire.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Pages\frmWeighing.resx">
       <DependentUpon>frmWeighing.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +248,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\rptTicket.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>rptTicket1.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
