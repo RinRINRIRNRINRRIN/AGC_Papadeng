@@ -374,10 +374,27 @@ namespace AGVWeight.Pages
             if (!checkTextEmpty())
                 return;
 
+            // อัพเดทข้อมูล order
+            OrderModel orderModel = new OrderModel
+            {
+                Typez = cbbType.Text,
+                Transport_name = cbbTransport.Text,
+                Customer_name = cbbCustomer.Text,
+                Product_name = cbbProduct.Text,
+                SoNumber = txtSo.Text,
+                DnNo = txtDn.Text,
+                SealNo = txtSealNo.Text,
+                Shipment = txtShipment.Text,
+                ContainerNo = txtContainer.Text,
+                Id = orderId
+            };
 
-            //if (IndicatorSelect == "TSC")
-            //    if (!int.TryParse(lblTsc.Text, out weight))
-            //        return;
+            OrderDb orderDb1 = new OrderDb();
+            if (!orderDb1.updateOrderById(orderModel))
+            {
+                MessageBox.Show("เกิดข้อผิดผลาดในการอัพเดทข้อมูลหลัก \nError : " + orderDb1.Error, "เกิดข้อผิดผลาด", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
 
             // สร้างข้อมูล รอง
@@ -744,15 +761,16 @@ namespace AGVWeight.Pages
         private void btnSave_Click(object sender, EventArgs e)
         {
             // เอา textbox ทะเบียนรถไปค้นหาที่ datagrid
-            foreach (DataGridViewRow rw in dgv.Rows)
-            {
-                string license = rw.Cells["cl_licensePlate"].Value.ToString();
-                if (license == txtLicensePlate.Text && gbInformation.Enabled)
+            if (orderId == 0)
+                foreach (DataGridViewRow rw in dgv.Rows)
                 {
-                    MessageBox.Show("เนื่องจากคีย์ทะเบียนรถซ้ำกับทะเบียนรถที่มีรายการชั่งรองแรกอยู่แล้ว กรุณาเลือกชั่งให้สำเร็จก่อน", "ชั่งรถรอบสอง", MessageBoxButtons.OK, MessageBoxIcon.Question);
-                    return;
+                    string license = rw.Cells["cl_licensePlate"].Value.ToString();
+                    if (license == txtLicensePlate.Text && gbInformation.Enabled)
+                    {
+                        MessageBox.Show("เนื่องจากคีย์ทะเบียนรถซ้ำกับทะเบียนรถที่มีรายการชั่งรองแรกอยู่แล้ว กรุณาเลือกชั่งให้สำเร็จก่อน", "ชั่งรถรอบสอง", MessageBoxButtons.OK, MessageBoxIcon.Question);
+                        return;
+                    }
                 }
-            }
 
             // snap น้ำหนักไว้ที่ตัวแปรเพื่อรอการบันทึก
             // กำหนดน้ำหนัก
@@ -826,7 +844,7 @@ namespace AGVWeight.Pages
                         FirstWeight = int.Parse(dgv.Rows[e.RowIndex].Cells["cl_weightIn"].Value.ToString());
                         dgv.Rows[e.RowIndex].Selected = true;
                         showFirstWeightOnGroupBox(orderId);
-                        gbInformation.Enabled = false;
+                        txtLicensePlate.Enabled = false;
                         gbList.Enabled = false;
                         lblFirstWeight.Text = FirstWeight.ToString();
                         //lblSecondWeight.Text = 
