@@ -317,18 +317,11 @@ namespace AGVWeight.Pages
             return true;
         }
 
-            //// กำหนดน้ำหนัก
-            //int weight = 0;
-            //if (IndicatorSelect == "MET")
-            //    if (!int.TryParse(lblMet.Text, out weight))
-            //        return;
-
-
-            //if (IndicatorSelect == "TSC")
-            //    if (!int.TryParse(lblTsc.Text, out weight))
-            //        return;
-
-
+        void saveFirstWeight(int weight)
+        {
+            // เช็คค่าว่าง
+            if (!checkTextEmpty())
+                return;
 
             OrderDb orderDb = new OrderDb();
             string orderNumber = orderDb.generateOrder();  // สร้างเลขที่ชั่งเข้า
@@ -377,11 +370,9 @@ namespace AGVWeight.Pages
 
         void saveSecondWeight(int weight, int net)
         {
-            //// กำหนดน้ำหนัก
-            //int weight = 0;
-            //if (IndicatorSelect == "MET")
-            //    if (!int.TryParse(lblMet.Text, out weight))
-            //        return;
+            // เช็คค่าว่าง
+            if (!checkTextEmpty())
+                return;
 
 
             //if (IndicatorSelect == "TSC")
