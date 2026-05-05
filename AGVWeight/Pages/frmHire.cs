@@ -315,108 +315,6 @@ namespace AGVWeight.Pages
             return true;
         }
 
-        void saveFirstWeight(int weight)
-        {
-            // เช็คค่าว่าง
-            if (!checkTextEmpty())
-                return;
-
-            OrderDb orderDb = new OrderDb();
-            string orderNumber = orderDb.generateOrder();  // สร้างเลขที่ชั่งเข้า
-            if (orderDb == null)
-            {
-                MessageBox.Show("เกิดข้อผิดผลาด สร้างเลขที่ชั่ง\nError : " + orderDb.Error, "เกิดข้อผิดผลาด", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // กำหนดค่าข้อมูลหลัก
-            OrderModel orderModel = new OrderModel
-            {
-                LicensePlate = txtLicensePlate.Text.Trim(),
-                Typez = cbbType.Text,
-                Transport_name = cbbTransport.Text,
-                Customer_name = cbbCustomer.Text,
-                Product_name = cbbProduct.Text,
-                SoNumber = txtSo.Text,
-                DnNo = txtDn.Text,
-                SealNo = txtSealNo.Text,
-                Shipment = txtShipment.Text,
-                ContainerNo = txtContainer.Text,
-                DateWeight = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CreateSpecificCulture("en-EN")),
-                NetWeight = 0,
-                Status = "Process",
-                OrderNumber = orderNumber
-            };
-            // สร้างข้อมูลหลัก
-            if (!orderDb.addNew(orderModel))
-            {
-                MessageBox.Show("เกิดข้อผิดผลาดในการบันทึกชั่งรอบแรก \n Error : " + orderDb.Error, "เกิดข้อผิดผลาดบันทึกชั่งรอบแรก", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            // ดึงข้อมูหลักมาเก็บที่ model
-            orderModel = orderDb.getOrderByOrderNumber(orderNumber);
-
-            // สร้างข้อมูลรอง
-            if (!saveWeightDetail(weight, "FIRST WEIGHT", orderModel.Id))
-                return;
-            // snap น้ำหนัก
-            snapWeigthToDcs(weight);
-            MessageBox.Show("บันทึกรายการชั่งรอบแรกสำเร็จ", "สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            clearScreen(); // เครียหน้าเจอให้พร้อมสำหรับเริ่มงานใหม่
-        }
-
-        void saveSecondWeight(int weight, int net)
-        {
-            // เช็คค่าว่าง
-            if (!checkTextEmpty())
-                return;
-
-            // อัพเดทข้อมูล order
-            OrderModel orderModel = new OrderModel
-            {
-                Typez = cbbType.Text,
-                Transport_name = cbbTransport.Text,
-                Customer_name = cbbCustomer.Text,
-                Product_name = cbbProduct.Text,
-                SoNumber = txtSo.Text,
-                DnNo = txtDn.Text,
-                SealNo = txtSealNo.Text,
-                Shipment = txtShipment.Text,
-                ContainerNo = txtContainer.Text,
-                Id = orderId
-            };
-
-            OrderDb orderDb1 = new OrderDb();
-            if (!orderDb1.updateOrderById(orderModel))
-            {
-                MessageBox.Show("เกิดข้อผิดผลาดในการอัพเดทข้อมูลหลัก \nError : " + orderDb1.Error, "เกิดข้อผิดผลาด", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-
-            // สร้างข้อมูล รอง
-            if (!saveWeightDetail(weight, "SECOND WEIGHT", orderId))
-                return;
-
-
-            OrderDb orderDb = new OrderDb();
-            orderDb.updateStatusAndNetWeightById(orderId, "Success", net);
-            // snap น้ำหนัก
-            snapWeigthToDcs(weight);
-            MessageBox.Show("บันทึกรายการชั่งรอบสองสำเร็จ", "สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            DialogResult dialogResult = MessageBox.Show("คุณต้องการพิมพ์ตั๋วโดยดูตัวอย่างการพิมพ์หรือไม่", "ดูตัวอย่างการพิมพ์", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (dialogResult == DialogResult.Yes)
-            {
-                frmReport frmReport = new frmReport(orderId, true);
-                frmReport.ShowDialog();
-            }
-            else if (dialogResult == DialogResult.No)
-            {
-                frmReport frmReport = new frmReport(orderId, false);
-                frmReport.ShowDialog();
-            }
-            clearScreen(); // เครียหน้าเจอให้พร้อมสำหรับเริ่มงานใหม่
-        }
 
         bool saveWeightDetail(int wgh, string weightType, int orderId)
         {
@@ -742,33 +640,73 @@ namespace AGVWeight.Pages
                 if (!int.TryParse(lblTsc.Text, out weight))
                     return;
 
+            // เช็คผู้ใช้งานว่าต้องการบันทึกหรือไม่
+            DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่? \n" +
+                $"First weight : {weight}\n", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res != DialogResult.Yes)
+                return;
 
-            // ถามเพื่อความมั่นใจอีกครั้ง
-            if (orderId == 0)
+            // เช็คค่าว่าง
+            if (!checkTextEmpty())
+                return;
+
+            OrderDb orderDb = new OrderDb();
+            // สร้างเลขที่ชั่งเข้า
+            string orderNumber = orderDb.generateOrderDummy();
+            if (orderDb == null)
             {
-                DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่? \n" +
-               $"First weight : {weight}\n", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res != DialogResult.Yes)
-                    return;
-            }
-            else
-            {
-                // อัพเดทสถานะและน้ำหนักสุทธิ
-                net = Math.Abs(FirstWeight - weight);
-                DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่? \n" +
-             $"First weight : {FirstWeight}\n" +
-             $"Second weight : {weight}\n" +
-             $"Net weight : {net}", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (res != DialogResult.Yes)
-                    return;
+                MessageBox.Show("เกิดข้อผิดผลาด สร้างเลขที่ชั่ง\nError : " + orderDb.Error, "เกิดข้อผิดผลาด", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
+            // กำหนดค่าข้อมูลหลัก
+            OrderModel orderModel = new OrderModel
+            {
+                LicensePlate = txtLicensePlate.Text.Trim(),
+                Typez = cbbType.Text,
+                Transport_name = cbbTransport.Text,
+                Customer_name = cbbCustomer.Text,
+                Product_name = cbbProduct.Text,
+                SoNumber = txtSo.Text,
+                DnNo = txtDn.Text,
+                SealNo = txtSealNo.Text,
+                Shipment = txtShipment.Text,
+                ContainerNo = txtContainer.Text,
+                DateWeight = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.CreateSpecificCulture("en-EN")),
+                NetWeight = 0,
+                Status = "Process",
+                OrderNumber = orderNumber
+            };
+            // สร้างข้อมูลหลัก
+            if (!orderDb.addNew(orderModel))
+            {
+                MessageBox.Show("เกิดข้อผิดผลาดในการบันทึกชั่งรอบแรก \n Error : " + orderDb.Error, "เกิดข้อผิดผลาดบันทึกชั่งรอบแรก", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
-            // เช็ค first weight or second weight
-            if (orderId == 0) // first weight
-                saveFirstWeight(weight);
-            else
-                saveSecondWeight(weight, net);
+            // ดึงข้อมูหลักมาเก็บที่ model
+            orderModel = orderDb.getOrderByOrderNumber(orderNumber);
+
+            // สร้างข้อมูลรอง
+            if (!saveWeightDetail(weight, "FIRST WEIGHT", orderModel.Id))
+                return;
+
+            // snap น้ำหนัก
+            snapWeigthToDcs(weight);
+
+
+            DialogResult dialogResult = MessageBox.Show("บันทึกรายการชั่งรอบสองสำเร็จ คุณต้องการพิมพ์ตั๋วโดยดูตัวอย่างการพิมพ์หรือไม่", "ดูตัวอย่างการพิมพ์", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                frmReport frmReport = new frmReport(orderId, true);
+                frmReport.ShowDialog();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                frmReport frmReport = new frmReport(orderId, false);
+                frmReport.ShowDialog();
+            }
+            clearScreen(); // เครียหน้าเจอให้พร้อมสำหรับเริ่มงานใหม่
         }
 
         private void tmUpdateModbusServer_Tick(object sender, EventArgs e)
