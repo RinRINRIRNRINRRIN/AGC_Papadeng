@@ -247,6 +247,7 @@
             this.txtContainer.Name = "txtContainer";
             this.txtContainer.Size = new System.Drawing.Size(774, 35);
             this.txtContainer.TabIndex = 10;
+            this.txtContainer.Tag = "Req";
             // 
             // label18
             // 
@@ -291,7 +292,7 @@
             this.cbbCustomer.Name = "cbbCustomer";
             this.cbbCustomer.Size = new System.Drawing.Size(373, 38);
             this.cbbCustomer.TabIndex = 4;
-            this.cbbCustomer.Tag = "CUSTOMER";
+            this.cbbCustomer.Tag = "Req";
             this.cbbCustomer.DropDown += new System.EventHandler(this.selectCombobox);
             // 
             // label4
@@ -366,7 +367,7 @@
             this.cbbType.Name = "cbbType";
             this.cbbType.Size = new System.Drawing.Size(375, 38);
             this.cbbType.TabIndex = 2;
-            this.cbbType.Tag = "TYPE";
+            this.cbbType.Tag = "Req";
             this.cbbType.DropDown += new System.EventHandler(this.selectCombobox);
             // 
             // txtShipment
@@ -376,6 +377,7 @@
             this.txtShipment.Name = "txtShipment";
             this.txtShipment.Size = new System.Drawing.Size(774, 35);
             this.txtShipment.TabIndex = 9;
+            this.txtShipment.Tag = "Req";
             // 
             // txtSealNo
             // 
@@ -384,6 +386,7 @@
             this.txtSealNo.Name = "txtSealNo";
             this.txtSealNo.Size = new System.Drawing.Size(774, 35);
             this.txtSealNo.TabIndex = 8;
+            this.txtSealNo.Tag = "Req";
             // 
             // txtDn
             // 
@@ -392,6 +395,7 @@
             this.txtDn.Name = "txtDn";
             this.txtDn.Size = new System.Drawing.Size(373, 35);
             this.txtDn.TabIndex = 7;
+            this.txtDn.Tag = "Req";
             // 
             // txtSo
             // 
@@ -400,6 +404,7 @@
             this.txtSo.Name = "txtSo";
             this.txtSo.Size = new System.Drawing.Size(375, 35);
             this.txtSo.TabIndex = 6;
+            this.txtSo.Tag = "Req";
             // 
             // label10
             // 
@@ -459,7 +464,7 @@
             this.cbbProduct.Name = "cbbProduct";
             this.cbbProduct.Size = new System.Drawing.Size(373, 38);
             this.cbbProduct.TabIndex = 5;
-            this.cbbProduct.Tag = "PRODUCT";
+            this.cbbProduct.Tag = "Req";
             this.cbbProduct.DropDown += new System.EventHandler(this.selectCombobox);
             // 
             // cbbTransport
@@ -470,7 +475,7 @@
             this.cbbTransport.Name = "cbbTransport";
             this.cbbTransport.Size = new System.Drawing.Size(375, 38);
             this.cbbTransport.TabIndex = 3;
-            this.cbbTransport.Tag = "TRANSPORT";
+            this.cbbTransport.Tag = "Req";
             this.cbbTransport.DropDown += new System.EventHandler(this.selectCombobox);
             // 
             // txtLicensePlate
