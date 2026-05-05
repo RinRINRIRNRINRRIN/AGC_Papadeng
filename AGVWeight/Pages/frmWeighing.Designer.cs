@@ -711,9 +711,9 @@
             this.lblNetWeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblNetWeight.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNetWeight.ForeColor = System.Drawing.Color.Blue;
-            this.lblNetWeight.Location = new System.Drawing.Point(227, 41);
+            this.lblNetWeight.Location = new System.Drawing.Point(14, 133);
             this.lblNetWeight.Name = "lblNetWeight";
-            this.lblNetWeight.Size = new System.Drawing.Size(163, 45);
+            this.lblNetWeight.Size = new System.Drawing.Size(376, 45);
             this.lblNetWeight.TabIndex = 0;
             this.lblNetWeight.Tag = "WGH";
             this.lblNetWeight.Text = "0";
@@ -724,9 +724,9 @@
             this.lblSecondWeight.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblSecondWeight.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSecondWeight.ForeColor = System.Drawing.Color.Blue;
-            this.lblSecondWeight.Location = new System.Drawing.Point(14, 130);
+            this.lblSecondWeight.Location = new System.Drawing.Point(225, 40);
             this.lblSecondWeight.Name = "lblSecondWeight";
-            this.lblSecondWeight.Size = new System.Drawing.Size(376, 45);
+            this.lblSecondWeight.Size = new System.Drawing.Size(165, 45);
             this.lblSecondWeight.TabIndex = 0;
             this.lblSecondWeight.Tag = "WGH";
             this.lblSecondWeight.Text = "0";
@@ -749,7 +749,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(231, 18);
+            this.label25.Location = new System.Drawing.Point(16, 104);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(92, 21);
             this.label25.TabIndex = 0;
@@ -759,7 +759,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(16, 104);
+            this.label24.Location = new System.Drawing.Point(227, 14);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(90, 21);
             this.label24.TabIndex = 0;
