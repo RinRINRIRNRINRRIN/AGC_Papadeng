@@ -340,30 +340,6 @@ namespace AGVWeight.Pages
         }
 
 
-        void showFirstWeightOnGroupBox(int orderId)
-        {
-            OrderDb orderDb = new OrderDb();
-            OrderModel model = orderDb.getOrderById(orderId);
-            foreach (ComboBox cbb in gbInformation.Controls.OfType<ComboBox>())
-                cbb.Items.Clear();
-
-            // กำหนดค่าแสดงที่ข้อมูลชั่ง สำหรับชั่งออก
-            txtLicensePlate.Text = model.LicensePlate;
-            cbbType.Items.Add(model.Typez);
-            cbbType.SelectedIndex = 0;
-            cbbTransport.Items.Add(model.Transport_name);
-            cbbTransport.SelectedIndex = 0;
-            cbbCustomer.Items.Add(model.Customer_name);
-            cbbCustomer.SelectedIndex = 0;
-            cbbProduct.Items.Add(model.Product_name);
-            cbbProduct.SelectedIndex = 0;
-            txtSo.Text = model.SoNumber;
-            txtDn.Text = model.DnNo;
-            txtSealNo.Text = model.SealNo;
-            txtShipment.Text = model.Shipment;
-            txtContainer.Text = model.ContainerNo;
-        }
-
         bool openModbusServer()
         {
             bool isSuccess = true;
