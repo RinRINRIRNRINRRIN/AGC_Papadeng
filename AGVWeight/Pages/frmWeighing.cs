@@ -774,10 +774,31 @@ namespace AGVWeight.Pages
                 if (!int.TryParse(lblTsc.Text, out weight))
                     return;
 
-            // ถามเพื่อความมั่นใจอีกครั้ง
-            DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่?", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (res != DialogResult.Yes)
+            // เช็คน้ำหนัก
+            if (weight <= 100)
+            {
+                MessageBox.Show("น้ำหนักที่บันทึกต้องมากกว่า 100 Kg", "น้ำหนักน้อยกว่าที่กำหนด", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            // ถามเพื่อความมั่นใจอีกครั้ง
+            if (orderId == 0)
+            {
+                DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่? \n" +
+               $"First weight : {weight}\n", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res != DialogResult.Yes)
+                    return;
+            }
+            else
+            {
+                DialogResult res = MessageBox.Show("คุณต้องการบันทึกข้อมูลการชั่งน้ำหนักหรือไม่? \n" +
+             $"First weight : {lblFirstWeight.Text}\n" +
+             $"Second weight : {lblSecondWeight.Text}\n" +
+             $"Net weight : {weight}", "ยืนยันการบันทึก", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (res != DialogResult.Yes)
+                    return;
+            }
+
 
             // เช็ค first weight or second weight
             if (orderId == 0) // first weight
