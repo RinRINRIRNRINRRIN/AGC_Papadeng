@@ -45,6 +45,10 @@ namespace AGVWeight
                     frmSetting frmSetting = new frmSetting();
                     frmSetting.ShowDialog();
                     break;
+                case "HIRE":
+                    frmHire frmHire = new frmHire();
+                    frmHire.ShowDialog();
+                    break;
 
             }
 

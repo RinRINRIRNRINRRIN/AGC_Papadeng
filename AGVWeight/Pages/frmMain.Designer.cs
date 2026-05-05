@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.ชงรถขาเดยวToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -55,12 +56,13 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.จดการขอมลToolStripMenuItem,
             this.ชงสนคาToolStripMenuItem,
+            this.ชงรถขาเดยวToolStripMenuItem,
             this.ประวตการชงToolStripMenuItem,
             this.ตงคาระบบToolStripMenuItem});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(723, 33);
+            this.menuStrip1.Size = new System.Drawing.Size(723, 52);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -141,9 +143,9 @@
             // 
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 33);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 52);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(723, 485);
+            this.pictureBox1.Size = new System.Drawing.Size(723, 466);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
@@ -188,6 +190,15 @@
             this.label3.Size = new System.Drawing.Size(60, 25);
             this.label3.TabIndex = 5;
             this.label3.Text = "V 1.0.0";
+            // 
+            // ชงรถขาเดยวToolStripMenuItem
+            // 
+            this.ชงรถขาเดยวToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("ชงรถขาเดยวToolStripMenuItem.Image")));
+            this.ชงรถขาเดยวToolStripMenuItem.Name = "ชงรถขาเดยวToolStripMenuItem";
+            this.ชงรถขาเดยวToolStripMenuItem.Size = new System.Drawing.Size(132, 29);
+            this.ชงรถขาเดยวToolStripMenuItem.Tag = "HIRE";
+            this.ชงรถขาเดยวToolStripMenuItem.Text = "ชั่งรถขาเดียว";
+            this.ชงรถขาเดยวToolStripMenuItem.Click += new System.EventHandler(this.ขอมลประเภทToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -236,6 +247,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ToolStripMenuItem ชงรถขาเดยวToolStripMenuItem;
     }
 }
 
