@@ -328,13 +328,6 @@ namespace AGVWeight.Pages
 
 
 
-            // เช็คน้ำหนัก
-            if (weight <= 100)
-            {
-                MessageBox.Show("น้ำหนักที่บันทึกต้องมากกว่า 100 Kg", "น้ำหนักน้อยกว่าที่กำหนด", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
             OrderDb orderDb = new OrderDb();
             string orderNumber = orderDb.generateOrder();  // สร้างเลขที่ชั่งเข้า
             if (orderDb == null)
@@ -393,12 +386,6 @@ namespace AGVWeight.Pages
             //    if (!int.TryParse(lblTsc.Text, out weight))
             //        return;
 
-            // เช็คน้ำหนัก
-            if (weight <= 100)
-            {
-                MessageBox.Show("น้ำหนักที่บันทึกต้องมากกว่า 100 Kg", "น้ำหนักน้อยกว่าที่กำหนด", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
 
             // สร้างข้อมูล รอง
             if (!saveWeightDetail(weight, "SECOND WEIGHT", orderId))
