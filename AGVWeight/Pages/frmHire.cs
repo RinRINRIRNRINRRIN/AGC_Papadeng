@@ -667,6 +667,9 @@ namespace AGVWeight.Pages
             if (!saveWeightDetail(weight, "FIRST WEIGHT", orderModel.Id))
                 return;
 
+            // อัพเดทน้ำหนักสุทธิในตารางหลัก
+            orderDb.updateStatusAndNetWeightById(orderModel.Id, "Success", weight);
+
             // snap น้ำหนัก
             snapWeigthToDcs(weight);
 
@@ -674,12 +677,12 @@ namespace AGVWeight.Pages
             DialogResult dialogResult = MessageBox.Show("บันทึกรายการชั่งรอบสองสำเร็จ คุณต้องการพิมพ์ตั๋วโดยดูตัวอย่างการพิมพ์หรือไม่", "ดูตัวอย่างการพิมพ์", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             if (dialogResult == DialogResult.Yes)
             {
-                frmReport frmReport = new frmReport(orderId, true);
+                frmReport frmReport = new frmReport(orderModel.Id, true);
                 frmReport.ShowDialog();
             }
             else if (dialogResult == DialogResult.No)
             {
-                frmReport frmReport = new frmReport(orderId, false);
+                frmReport frmReport = new frmReport(orderModel.Id, false);
                 frmReport.ShowDialog();
             }
             clearScreen(); // เครียหน้าเจอให้พร้อมสำหรับเริ่มงานใหม่
