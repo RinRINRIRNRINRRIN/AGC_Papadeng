@@ -292,28 +292,30 @@ namespace AGVWeight.Pages
             dgv.ClearSelection();
         }
 
-        void saveFirstWeight(int weight)
+        bool checkTextEmpty()
         {
             // เช็คค่าว่าง
             foreach (TextBox txt in gbInformation.Controls.OfType<TextBox>())
-                if (txt.Tag == "REQUIRE" && txt.Text == "")
+                if (txt.Tag == "Req" && txt.Text == "")
                 {
                     MessageBox.Show("กรุณากรอกข้อมูลให้ครบก่อนการบันทึก", "พบข้อมูลว่าง", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    return false;
                 }
 
             foreach (ComboBox cbb in gbInformation.Controls.OfType<ComboBox>())
                 if (cbb.Text == "")
                 {
                     MessageBox.Show("กรุณากรอกข้อมูลให้ครบก่อนการบันทึก", "พบข้อมูลว่าง", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
+                    return false;
                 }
 
             //  เติมค่าว่างหาก textbox ที่ไม่ใช่ require เป็นค่าว่าง
             foreach (TextBox txt in gbInformation.Controls.OfType<TextBox>())
-                if (txt.Tag != "REQUIRE" && txt.Text == "")
+                if (txt.Tag != "Req" && txt.Text == "")
                     txt.Text = "-";
 
+            return true;
+        }
 
             //// กำหนดน้ำหนัก
             //int weight = 0;
