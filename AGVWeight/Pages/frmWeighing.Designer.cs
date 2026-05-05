@@ -39,14 +39,18 @@
             this.pnTsc = new System.Windows.Forms.Panel();
             this.pnMet = new System.Windows.Forms.Panel();
             this.gbInformation = new System.Windows.Forms.GroupBox();
+            this.txtContainer = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
+            this.cbbCustomer = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.txtContainer = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cbbType = new System.Windows.Forms.ComboBox();
             this.txtShipment = new System.Windows.Forms.TextBox();
             this.txtSealNo = new System.Windows.Forms.TextBox();
             this.txtDn = new System.Windows.Forms.TextBox();
@@ -57,18 +61,25 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.cbbProduct = new System.Windows.Forms.ComboBox();
-            this.cbbCustomer = new System.Windows.Forms.ComboBox();
             this.cbbTransport = new System.Windows.Forms.ComboBox();
-            this.cbbType = new System.Windows.Forms.ComboBox();
             this.txtLicensePlate = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.gbList = new System.Windows.Forms.GroupBox();
             this.lblFirstWeightCount = new System.Windows.Forms.Label();
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.cl_select = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.cl_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_ordernumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_licensePlate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_weightIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_product = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_indicator = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cl_delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.gbSystem = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label29 = new System.Windows.Forms.Label();
@@ -91,17 +102,6 @@
             this.tmStableCheck = new System.Windows.Forms.Timer(this.components);
             this.tmUpdateModbusServer = new System.Windows.Forms.Timer(this.components);
             this.tmSnacpDcs = new System.Windows.Forms.Timer(this.components);
-            this.cl_select = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.cl_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_ordernumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_licensePlate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_weightIn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_type = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_product = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_customer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_indicator = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cl_delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.gbInformation.SuspendLayout();
             this.gbList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -206,9 +206,11 @@
             // gbInformation
             // 
             this.gbInformation.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbInformation.Controls.Add(this.txtContainer);
             this.gbInformation.Controls.Add(this.label18);
             this.gbInformation.Controls.Add(this.label22);
             this.gbInformation.Controls.Add(this.label21);
+            this.gbInformation.Controls.Add(this.label10);
             this.gbInformation.Controls.Add(this.cbbCustomer);
             this.gbInformation.Controls.Add(this.label4);
             this.gbInformation.Controls.Add(this.label20);
@@ -216,13 +218,11 @@
             this.gbInformation.Controls.Add(this.label16);
             this.gbInformation.Controls.Add(this.label17);
             this.gbInformation.Controls.Add(this.label1);
-            this.gbInformation.Controls.Add(this.txtContainer);
             this.gbInformation.Controls.Add(this.cbbType);
             this.gbInformation.Controls.Add(this.txtShipment);
             this.gbInformation.Controls.Add(this.txtSealNo);
             this.gbInformation.Controls.Add(this.txtDn);
             this.gbInformation.Controls.Add(this.txtSo);
-            this.gbInformation.Controls.Add(this.label10);
             this.gbInformation.Controls.Add(this.label9);
             this.gbInformation.Controls.Add(this.label8);
             this.gbInformation.Controls.Add(this.label7);
@@ -235,10 +235,29 @@
             this.gbInformation.Controls.Add(this.label2);
             this.gbInformation.Location = new System.Drawing.Point(6, 12);
             this.gbInformation.Name = "gbInformation";
-            this.gbInformation.Size = new System.Drawing.Size(811, 467);
+            this.gbInformation.Size = new System.Drawing.Size(811, 523);
             this.gbInformation.TabIndex = 0;
             this.gbInformation.TabStop = false;
             this.gbInformation.Text = "รายละเอียดรถ";
+            // 
+            // txtContainer
+            // 
+            this.txtContainer.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtContainer.Location = new System.Drawing.Point(28, 413);
+            this.txtContainer.Name = "txtContainer";
+            this.txtContainer.Size = new System.Drawing.Size(774, 35);
+            this.txtContainer.TabIndex = 10;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.Red;
+            this.label18.Location = new System.Drawing.Point(407, 488);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(17, 21);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "*";
             // 
             // label22
             // 
@@ -264,6 +283,27 @@
             this.label21.Text = "* = จำเป็นต้องใส่ค่า";
             this.label21.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // cbbCustomer
+            // 
+            this.cbbCustomer.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbCustomer.FormattingEnabled = true;
+            this.cbbCustomer.Location = new System.Drawing.Point(429, 479);
+            this.cbbCustomer.Name = "cbbCustomer";
+            this.cbbCustomer.Size = new System.Drawing.Size(373, 38);
+            this.cbbCustomer.TabIndex = 4;
+            this.cbbCustomer.Tag = "CUSTOMER";
+            this.cbbCustomer.DropDown += new System.EventHandler(this.selectCombobox);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(430, 455);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(49, 21);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "ลูกค้า";
+            // 
             // label20
             // 
             this.label20.AutoSize = true;
@@ -286,16 +326,16 @@
             this.label19.TabIndex = 0;
             this.label19.Text = "*";
             // 
-            // label18
+            // label16
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Red;
-            this.label18.Location = new System.Drawing.Point(407, 426);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(17, 21);
-            this.label18.TabIndex = 0;
-            this.label18.Text = "*";
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.Red;
+            this.label16.Location = new System.Drawing.Point(6, 488);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(17, 21);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "*";
             // 
             // label17
             // 
@@ -308,24 +348,26 @@
             this.label17.TabIndex = 0;
             this.label17.Text = "*";
             // 
-            // label16
+            // label1
             // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Red;
-            this.label16.Location = new System.Drawing.Point(6, 426);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(17, 21);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "*";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(31, 455);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(60, 21);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "ประเภท";
             // 
-            // txtContainer
+            // cbbType
             // 
-            this.txtContainer.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContainer.Location = new System.Drawing.Point(9, 626);
-            this.txtContainer.Name = "txtContainer";
-            this.txtContainer.Size = new System.Drawing.Size(491, 35);
-            this.txtContainer.TabIndex = 10;
+            this.cbbType.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbType.FormattingEnabled = true;
+            this.cbbType.Location = new System.Drawing.Point(28, 479);
+            this.cbbType.Name = "cbbType";
+            this.cbbType.Size = new System.Drawing.Size(375, 38);
+            this.cbbType.TabIndex = 2;
+            this.cbbType.Tag = "TYPE";
+            this.cbbType.DropDown += new System.EventHandler(this.selectCombobox);
             // 
             // txtShipment
             // 
@@ -363,7 +405,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(12, 602);
+            this.label10.Location = new System.Drawing.Point(31, 389);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(111, 21);
             this.label10.TabIndex = 0;
@@ -420,17 +462,6 @@
             this.cbbProduct.Tag = "PRODUCT";
             this.cbbProduct.DropDown += new System.EventHandler(this.selectCombobox);
             // 
-            // cbbCustomer
-            // 
-            this.cbbCustomer.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbCustomer.FormattingEnabled = true;
-            this.cbbCustomer.Location = new System.Drawing.Point(429, 416);
-            this.cbbCustomer.Name = "cbbCustomer";
-            this.cbbCustomer.Size = new System.Drawing.Size(373, 38);
-            this.cbbCustomer.TabIndex = 4;
-            this.cbbCustomer.Tag = "CUSTOMER";
-            this.cbbCustomer.DropDown += new System.EventHandler(this.selectCombobox);
-            // 
             // cbbTransport
             // 
             this.cbbTransport.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -441,17 +472,6 @@
             this.cbbTransport.TabIndex = 3;
             this.cbbTransport.Tag = "TRANSPORT";
             this.cbbTransport.DropDown += new System.EventHandler(this.selectCombobox);
-            // 
-            // cbbType
-            // 
-            this.cbbType.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbType.FormattingEnabled = true;
-            this.cbbType.Location = new System.Drawing.Point(28, 417);
-            this.cbbType.Name = "cbbType";
-            this.cbbType.Size = new System.Drawing.Size(375, 38);
-            this.cbbType.TabIndex = 2;
-            this.cbbType.Tag = "TYPE";
-            this.cbbType.DropDown += new System.EventHandler(this.selectCombobox);
             // 
             // txtLicensePlate
             // 
@@ -476,16 +496,6 @@
             this.label5.Text = "ทะเบียนรถ";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(430, 392);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(49, 21);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "ลูกค้า";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -506,16 +516,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "บริษัทขนส่ง";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(26, 393);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 21);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "ประเภท";
-            // 
             // gbList
             // 
             this.gbList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -523,9 +523,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbList.Controls.Add(this.lblFirstWeightCount);
             this.gbList.Controls.Add(this.dgv);
-            this.gbList.Location = new System.Drawing.Point(3, 485);
+            this.gbList.Location = new System.Drawing.Point(6, 541);
             this.gbList.Name = "gbList";
-            this.gbList.Size = new System.Drawing.Size(1622, 454);
+            this.gbList.Size = new System.Drawing.Size(1619, 398);
             this.gbList.TabIndex = 0;
             this.gbList.TabStop = false;
             this.gbList.Text = "ข้อมูลรถค้างชั่ง";
@@ -562,15 +562,96 @@
             this.cl_customer,
             this.cl_indicator,
             this.cl_delete});
-            this.dgv.Location = new System.Drawing.Point(9, 60);
+            this.dgv.Location = new System.Drawing.Point(9, 47);
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.RowHeadersWidth = 50;
             this.dgv.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgv.RowTemplate.Height = 35;
-            this.dgv.Size = new System.Drawing.Size(1607, 391);
+            this.dgv.Size = new System.Drawing.Size(1604, 348);
             this.dgv.TabIndex = 0;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
+            // 
+            // cl_select
+            // 
+            this.cl_select.HeaderText = "";
+            this.cl_select.Name = "cl_select";
+            this.cl_select.ReadOnly = true;
+            this.cl_select.Text = "ชั่งรอบสอง";
+            this.cl_select.UseColumnTextForButtonValue = true;
+            this.cl_select.Width = 160;
+            // 
+            // cl_id
+            // 
+            this.cl_id.HeaderText = "Id";
+            this.cl_id.Name = "cl_id";
+            this.cl_id.ReadOnly = true;
+            this.cl_id.Visible = false;
+            // 
+            // cl_ordernumber
+            // 
+            this.cl_ordernumber.HeaderText = "เลขที่ชั่ง";
+            this.cl_ordernumber.Name = "cl_ordernumber";
+            this.cl_ordernumber.ReadOnly = true;
+            this.cl_ordernumber.Width = 150;
+            // 
+            // cl_date
+            // 
+            this.cl_date.HeaderText = "วัน/เวลา ชั่งเข้า";
+            this.cl_date.Name = "cl_date";
+            this.cl_date.ReadOnly = true;
+            this.cl_date.Width = 200;
+            // 
+            // cl_licensePlate
+            // 
+            this.cl_licensePlate.HeaderText = "ทะเบียนรถ";
+            this.cl_licensePlate.Name = "cl_licensePlate";
+            this.cl_licensePlate.ReadOnly = true;
+            this.cl_licensePlate.Width = 150;
+            // 
+            // cl_weightIn
+            // 
+            this.cl_weightIn.HeaderText = "น้ำหนักชั่งเข้า";
+            this.cl_weightIn.Name = "cl_weightIn";
+            this.cl_weightIn.ReadOnly = true;
+            this.cl_weightIn.Width = 120;
+            // 
+            // cl_type
+            // 
+            this.cl_type.HeaderText = "ประเภท";
+            this.cl_type.Name = "cl_type";
+            this.cl_type.ReadOnly = true;
+            this.cl_type.Width = 300;
+            // 
+            // cl_product
+            // 
+            this.cl_product.HeaderText = "สินค้า";
+            this.cl_product.Name = "cl_product";
+            this.cl_product.ReadOnly = true;
+            this.cl_product.Width = 300;
+            // 
+            // cl_customer
+            // 
+            this.cl_customer.HeaderText = "ลูกค้า";
+            this.cl_customer.Name = "cl_customer";
+            this.cl_customer.ReadOnly = true;
+            this.cl_customer.Width = 300;
+            // 
+            // cl_indicator
+            // 
+            this.cl_indicator.HeaderText = "เครื่องชั่ง";
+            this.cl_indicator.Name = "cl_indicator";
+            this.cl_indicator.ReadOnly = true;
+            this.cl_indicator.Width = 200;
+            // 
+            // cl_delete
+            // 
+            this.cl_delete.HeaderText = "";
+            this.cl_delete.Name = "cl_delete";
+            this.cl_delete.ReadOnly = true;
+            this.cl_delete.Text = "ยกเลิกรายการชั่ง";
+            this.cl_delete.UseColumnTextForButtonValue = true;
+            this.cl_delete.Width = 160;
             // 
             // gbSystem
             // 
@@ -814,87 +895,6 @@
             // tmSnacpDcs
             // 
             this.tmSnacpDcs.Tick += new System.EventHandler(this.tmSnacpDcs_Tick);
-            // 
-            // cl_select
-            // 
-            this.cl_select.HeaderText = "";
-            this.cl_select.Name = "cl_select";
-            this.cl_select.ReadOnly = true;
-            this.cl_select.Text = "ชั่งรอบสอง";
-            this.cl_select.UseColumnTextForButtonValue = true;
-            this.cl_select.Width = 160;
-            // 
-            // cl_id
-            // 
-            this.cl_id.HeaderText = "Id";
-            this.cl_id.Name = "cl_id";
-            this.cl_id.ReadOnly = true;
-            this.cl_id.Visible = false;
-            // 
-            // cl_ordernumber
-            // 
-            this.cl_ordernumber.HeaderText = "เลขที่ชั่ง";
-            this.cl_ordernumber.Name = "cl_ordernumber";
-            this.cl_ordernumber.ReadOnly = true;
-            this.cl_ordernumber.Width = 150;
-            // 
-            // cl_date
-            // 
-            this.cl_date.HeaderText = "วัน/เวลา ชั่งเข้า";
-            this.cl_date.Name = "cl_date";
-            this.cl_date.ReadOnly = true;
-            this.cl_date.Width = 200;
-            // 
-            // cl_licensePlate
-            // 
-            this.cl_licensePlate.HeaderText = "ทะเบียนรถ";
-            this.cl_licensePlate.Name = "cl_licensePlate";
-            this.cl_licensePlate.ReadOnly = true;
-            this.cl_licensePlate.Width = 150;
-            // 
-            // cl_weightIn
-            // 
-            this.cl_weightIn.HeaderText = "น้ำหนักชั่งเข้า";
-            this.cl_weightIn.Name = "cl_weightIn";
-            this.cl_weightIn.ReadOnly = true;
-            this.cl_weightIn.Width = 120;
-            // 
-            // cl_type
-            // 
-            this.cl_type.HeaderText = "ประเภท";
-            this.cl_type.Name = "cl_type";
-            this.cl_type.ReadOnly = true;
-            this.cl_type.Width = 300;
-            // 
-            // cl_product
-            // 
-            this.cl_product.HeaderText = "สินค้า";
-            this.cl_product.Name = "cl_product";
-            this.cl_product.ReadOnly = true;
-            this.cl_product.Width = 300;
-            // 
-            // cl_customer
-            // 
-            this.cl_customer.HeaderText = "ลูกค้า";
-            this.cl_customer.Name = "cl_customer";
-            this.cl_customer.ReadOnly = true;
-            this.cl_customer.Width = 300;
-            // 
-            // cl_indicator
-            // 
-            this.cl_indicator.HeaderText = "เครื่องชั่ง";
-            this.cl_indicator.Name = "cl_indicator";
-            this.cl_indicator.ReadOnly = true;
-            this.cl_indicator.Width = 200;
-            // 
-            // cl_delete
-            // 
-            this.cl_delete.HeaderText = "";
-            this.cl_delete.Name = "cl_delete";
-            this.cl_delete.ReadOnly = true;
-            this.cl_delete.Text = "ยกเลิกรายการชั่ง";
-            this.cl_delete.UseColumnTextForButtonValue = true;
-            this.cl_delete.Width = 160;
             // 
             // frmWeighing
             // 
