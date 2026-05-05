@@ -189,7 +189,7 @@
             // 
             // gbInformation
             // 
-            this.gbInformation.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbInformation.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbInformation.Controls.Add(this.txtContainer);
             this.gbInformation.Controls.Add(this.label18);
             this.gbInformation.Controls.Add(this.label22);
@@ -217,7 +217,7 @@
             this.gbInformation.Controls.Add(this.label5);
             this.gbInformation.Controls.Add(this.label3);
             this.gbInformation.Controls.Add(this.label2);
-            this.gbInformation.Location = new System.Drawing.Point(6, 12);
+            this.gbInformation.Location = new System.Drawing.Point(12, 10);
             this.gbInformation.Name = "gbInformation";
             this.gbInformation.Size = new System.Drawing.Size(811, 523);
             this.gbInformation.TabIndex = 0;
@@ -507,7 +507,7 @@
             // 
             // gbSystem
             // 
-            this.gbSystem.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gbSystem.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.gbSystem.Controls.Add(this.panel1);
             this.gbSystem.Controls.Add(this.btnCancel);
             this.gbSystem.Controls.Add(this.btnSave);
@@ -527,9 +527,9 @@
             this.gbSystem.Controls.Add(this.pnTsc);
             this.gbSystem.Controls.Add(this.lblIpMet);
             this.gbSystem.Controls.Add(this.rdbTsc);
-            this.gbSystem.Location = new System.Drawing.Point(823, 12);
+            this.gbSystem.Location = new System.Drawing.Point(12, 539);
             this.gbSystem.Name = "gbSystem";
-            this.gbSystem.Size = new System.Drawing.Size(799, 467);
+            this.gbSystem.Size = new System.Drawing.Size(811, 459);
             this.gbSystem.TabIndex = 0;
             this.gbSystem.TabStop = false;
             this.gbSystem.Text = "ข้อมูลระบบ";
@@ -543,7 +543,7 @@
             this.panel1.Controls.Add(this.label25);
             this.panel1.Controls.Add(this.label24);
             this.panel1.Controls.Add(this.label23);
-            this.panel1.Location = new System.Drawing.Point(394, 35);
+            this.panel1.Location = new System.Drawing.Point(401, 29);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(404, 186);
             this.panel1.TabIndex = 0;
@@ -753,9 +753,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1632, 546);
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(833, 1010);
             this.Controls.Add(this.gbSystem);
             this.Controls.Add(this.gbInformation);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
